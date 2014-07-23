@@ -1,0 +1,10 @@
+services:
+    forumhulp.cron_status.listener:
+        class: forumhulp\cron_status\event\listener
+        arguments:
+            - @config
+            - @controller.helper
+            - @user
+            - @template
+        tags:
+            - { name: event.listener }
