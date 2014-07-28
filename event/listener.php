@@ -70,7 +70,7 @@ class listener implements EventSubscriberInterface
 
 		$time = explode(' ', $this->config['cron_lock']);
 
-		$sql = 'SELECT * FROM tbl_config where config_name LIKE "%last_gc" ORDER BY config_value DESC LIMIT 1';
+		$sql = 'SELECT * FROM ' . CONFIG_TABLE . ' where config_name LIKE "%last_gc" ORDER BY config_value DESC LIMIT 1';
 		$result = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($result);
 		$task = str_replace('_last_gc', '',$row['config_name']);
