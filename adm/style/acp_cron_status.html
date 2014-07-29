@@ -1,0 +1,19 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+<h1>{L_ACP_CRON_STATUS_TITLE}</h1>
+
+<!-- IF S_READY_TASKS -->
+	<div class="successbox">
+		<h3>{L_READY_TASKS}</h3>
+		<p>{READY_TASKS}</p>
+	</div>
+<!-- ENDIF -->
+
+<div class="errorbox">
+	<h3>{L_NOT_READY_TASKS}</h3>
+	<p>{NOT_READY_TASKS}</p>
+</div>
+
+<!-- INCLUDE overall_footer.html -->

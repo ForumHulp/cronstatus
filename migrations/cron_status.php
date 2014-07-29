@@ -24,7 +24,15 @@ class cron_status extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('config.add', array('cron_status_version', '3.1.0'))
+			array('config.add', array('cron_status_version', '3.1.0')),
+			array('module.add', array('acp', 'ACP_CAT_MAINTENANCE', 'ACP_CRON_STATUS_TITLE')),
+			array('module.add', array(
+				'acp', 'ACP_CRON_STATUS_TITLE', array(
+					'module_basename'	=> '\forumhulp\cron_status\acp\cron_status_module',
+					'auth'				=> 'ext_forumhulp/cron_status',
+					'modes'				=> array('config'),
+				),
+			)),
 		);
 	}
 }
