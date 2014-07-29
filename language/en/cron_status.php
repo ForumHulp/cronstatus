@@ -27,6 +27,7 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_NO_TASKS'			=> 'No available cron tasks',
 	'CRON_TASK_NAME'				=> 'Task name',
 	'CRON_TASK_DATE'				=> 'Last task date',
+	'CRON_NEW_DATE'					=> 'New task date',
 	'CRON_TASK_NEVER_STARTED'		=> 'Never started',
 	'CRON_TASK_AUTO'				=> 'Auto',
 ));

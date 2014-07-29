@@ -16,61 +16,49 @@ class cron_status_module
 	{
 		global $db, $user, $template, $request, $phpbb_container;
 
-		$action	= $request->variable('action', '');
-
-		switch($mode)
-		{
-			case 'config':
-			$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
-			$this->tpl_name = 'acp_cron_status';
-			break;
-		}
+		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
+		$this->tpl_name = 'acp_cron_status';
 		
 		$tasks = array();
 		$tasks = $phpbb_container->get('cron.manager')->get_tasks();
 
-		if (empty($tasks))
+		if (sizeof($tasks))
 		{
-			$template->assign_vars(array(
-				'S_CRON_TASKS'		=> false,
-				'U_ACTION'			=> $this->u_action,
-			));
-			return;
-		}
-
-		$sql = 'SELECT * FROM '.CONFIG_TABLE.' WHERE config_name LIKE "%last_gc"';
-		$result = $db->sql_query($sql);
-		$rows = $db->sql_fetchrowset($result);
-
-		$template->assign_vars(array(
-			'S_CRON_TASKS'		=> (sizeof($tasks)) ? true : false,
-			'U_ACTION'			=> $this->u_action,
-		));
-
-		$not_ready_tasks = array();
-		$ready_tasks = array();
-		foreach ($tasks as $task)
-		{
-			$task_name = $task->get_name();
-			if(empty($task_name)) continue;
-			$task_date = -1;
-			$find = strpos($task_name, 'tidy');
-			if($find !== false)
+			$sql = 'SELECT * FROM '.CONFIG_TABLE.' WHERE config_name LIKE "%gc"';
+			$result = $db->sql_query($sql);
+			$rows = $db->sql_fetchrowset($result);
+	
+			$not_ready_tasks = $ready_tasks = array();
+			foreach ($tasks as $task)
 			{
-				$name = substr($task_name, $find + 5);
-				$task_date = (int) $this->array_find($name, $rows);
+				$task_name = $task->get_name();
+				if(empty($task_name)) continue;
+				$task_date = -1;
+				$find = strpos($task_name, 'tidy');
+				if($find !== false)
+				{
+					$name = substr($task_name, $find + 5);
+					$name = ($name == 'sessions') ? 'session' : $name;
+					$task_date = (int) $this->array_find($name . '_last_gc', $rows);
+				}
+				else if (strpos($task_name, 'prune_notifications'))
+				{
+					$task_date = (int) $this->array_find('read_notification_last_gc', $rows);
+					$name = 'read_notification';
+				} else
+				{
+					$name = substr($task_name, 15) ;
+					$task_date = (int) $this->array_find($name . '_last_gc', $rows);
+				}
+				$template->assign_block_vars(($task->is_ready()) ? 'ready' : 'not_ready', array(
+					'DISPLAY_NAME'	=> $task_name,
+					'TASK_DATE'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
+										$user->format_date($task_date, 'j-m-Y H:m') : $user->lang['CRON_TASK_NEVER_STARTED']),
+					'NEW_DATE'		=> ($task_date) ? $user->format_date($task_date + (int) $this->array_find($name. '_gc', $rows), 'j-m-Y H:m') : '',
+				));
 			}
-			else if (strpos($task_name, 'prune_notifications'))
-			{
-				$task_date = (int) $this->array_find('read_notifications', $rows);
-			}
-			$template->assign_block_vars(($task->is_ready()) ? 'ready' : 'not_ready', array(
-				'DISPLAY_NAME'	=> $task_name,
-				'TASK_DATE'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? $user->format_date($task_date) : $user->lang['CRON_TASK_NEVER_STARTED']),
-			));
+			$template->assign_vars(array('S_CRON_TASKS' => true));
 		}
-
-		
 	}
 
 	// array_search with partial matches

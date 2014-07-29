@@ -10,32 +10,36 @@
 <table class="table1">
 	<col class="row1">
 	<col class="row1">
+   	<col class="row1">
 	<thead>
 		<tr>
 			<th>{L_CRON_TASK_NAME}</th>
 			<th style="text-align: center; width: 30%;">{L_CRON_TASK_DATE}</th>
+            <th style="text-align: center; width: 30%;">{L_CRON_NEW_DATE}</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!-- IF .ready -->
 		<tr>
-			<td class="row3" colspan="2"><strong>{L_CRON_STATUS_READY_TASKS}</strong></td>
+			<td class="row3" colspan="3"><strong>{L_CRON_STATUS_READY_TASKS}</strong></td>
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
 			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong></td>
 			<td style="text-align: center;">{ready.TASK_DATE}</td>
+            <td style="text-align: center;">{ready.NEW_DATE}</td>
 		</tr>
 		<!-- END ready -->
 		<!-- ENDIF -->
 		<!-- IF .not_ready -->
 		<tr>
-			<td class="row3" colspan="4"><strong>{L_CRON_STATUS_NOT_READY_TASKS}</strong></td>
+			<td class="row3" colspan="3"><strong>{L_CRON_STATUS_NOT_READY_TASKS}</strong></td>
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>
-			<td><strong style ="color: #BC2A4D;">{not_ready.DISPLAY_NAME}</strong></td>
+			<td><strong style ="color: <!-- IF not_ready.NEW_DATE -->#228822;<!-- ELSE -->#BC2A4D;<!-- ENDIF -->">{not_ready.DISPLAY_NAME}</strong></td>
 			<td style="text-align: center;">{not_ready.TASK_DATE}</td>
+            <td style="text-align: center;">{not_ready.NEW_DATE}</td>
 		</tr>
 		<!-- END not_ready -->
 		<!-- ENDIF -->
