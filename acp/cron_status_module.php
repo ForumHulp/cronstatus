@@ -24,10 +24,21 @@ class cron_status_module
 
 		if (sizeof($tasks))
 		{
-			$sql = 'SELECT * FROM '.CONFIG_TABLE.' WHERE config_name LIKE "%gc"';
+			$sql = 'SELECT config_name, config_value FROM '.CONFIG_TABLE.' WHERE config_name LIKE "%gc"';
 			$result = $db->sql_query($sql);
 			$rows = $db->sql_fetchrowset($result);
-	
+			
+			$sql = '(SELECT "prune_forum_last_gc" AS config_name, prune_next AS config_value FROM ' . FORUMS_TABLE . ' WHERE enable_prune = 1 ORDER BY prune_next LIMIT 1)
+					UNION
+					(SELECT "prune_forum_gc" AS config_name, prune_days * 86400 AS config_value FROM ' . FORUMS_TABLE . ' WHERE enable_prune = 1 ORDER BY prune_next LIMIT 1)
+					UNION
+					(SELECT "prune_shadow_topics_last_gc" AS config_name, prune_shadow_next AS config_value FROM ' . FORUMS_TABLE . ' WHERE enable_shadow_prune = 1 ORDER BY prune_shadow_next LIMIT 1)
+					UNION
+					(SELECT "prune_shadow_topics_gc" AS config_name, prune_shadow_days * 86400 AS config_value FROM ' . FORUMS_TABLE . ' WHERE enable_shadow_prune = 1 ORDER BY prune_shadow_next LIMIT 1)';
+			$result = $db->sql_query($sql);
+			$rows1 = $db->sql_fetchrowset($result);
+			$rows = array_merge($rows, $rows1);			
+
 			$not_ready_tasks = $ready_tasks = array();
 			foreach ($tasks as $task)
 			{
