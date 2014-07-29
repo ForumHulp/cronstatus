@@ -4,16 +4,46 @@
 
 <h1>{L_ACP_CRON_STATUS_TITLE}</h1>
 
-<!-- IF S_READY_TASKS -->
-	<div class="successbox">
-		<h3>{L_READY_TASKS}</h3>
-		<p>{READY_TASKS}</p>
-	</div>
-<!-- ENDIF -->
+<p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
+<!-- IF S_CRON_TASKS -->
+<table class="table1">
+	<col class="row1">
+	<col class="row1">
+	<thead>
+		<tr>
+			<th>{L_CRON_TASK_NAME}</th>
+			<th style="text-align: center; width: 30%;">{L_CRON_TASK_DATE}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- IF .ready -->
+		<tr>
+			<td class="row3" colspan="2"><strong>{L_CRON_STATUS_READY_TASKS}</strong></td>
+		</tr>
+		<!-- BEGIN ready -->
+		<tr>
+			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong></td>
+			<td style="text-align: center;">{ready.TASK_DATE}</td>
+		</tr>
+		<!-- END ready -->
+		<!-- ENDIF -->
+		<!-- IF .not_ready -->
+		<tr>
+			<td class="row3" colspan="4"><strong>{L_CRON_STATUS_NOT_READY_TASKS}</strong></td>
+		</tr>
+		<!-- BEGIN not_ready -->
+		<tr>
+			<td><strong style ="color: #BC2A4D;">{not_ready.DISPLAY_NAME}</strong></td>
+			<td style="text-align: center;">{not_ready.TASK_DATE}</td>
+		</tr>
+		<!-- END not_ready -->
+		<!-- ENDIF -->
+	</tbody>
+</table>
+<!-- ELSE -->
 <div class="errorbox">
-	<h3>{L_NOT_READY_TASKS}</h3>
-	<p>{NOT_READY_TASKS}</p>
+	<h3>{L_CRON_STATUS_NO_TASKS}</h3>
 </div>
-
+<!-- ENDIF -->
 <!-- INCLUDE overall_footer.html -->
