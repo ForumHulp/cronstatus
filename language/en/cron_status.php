@@ -18,5 +18,10 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-    'CRON_STATUS' => 'Cron Locked',
+    'CRON_STATUS'					=> 'Cron Locked',
+	'ACP_CRON_STATUS_TITLE'			=> 'Cron status',
+	'ACP_CRON_STATUS_CONFIG_TITLE'	=> 'Check cron status',
+	'CRON_STATUS_READY_TASKS'		=> 'Ready tasks',
+	'CRON_STATUS_NOT_READY_TASKS'	=> 'Not ready tasks',
+	'CRON_STATUS_NO_TASKS'			=> 'No available cron tasks',
 ));
