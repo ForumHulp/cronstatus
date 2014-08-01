@@ -49,11 +49,11 @@ class cron_status_module
 			$prune_shadow = $db->sql_fetchrow($result);
 			$rows[] = array(
 				"config_name"	=> "prune_shadow_topics_last_gc",
-				"config_value"	=> $prune['prune_next']
+				"config_value"	=> $prune_shadow['prune_shadow_next']
 			);
 			$rows[] = array(
 				"config_name"	=> "prune_shadow_topics_gc",
-				"config_value"	=> $prune['prune_shadow_time']
+				"config_value"	=> $prune_shadow['prune_shadow_time']
 			);			
 			$db->sql_freeresult($result);
 
