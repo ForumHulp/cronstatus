@@ -1,4 +1,61 @@
 <!-- INCLUDE overall_header.html -->
+<style>
+#progressBar {
+        width: 100%;
+        height: 8px;
+ /*       border: 1px solid #111;*/
+        background-color: #292929;
+}
+ 
+#progressBar div {
+        height: 100%;
+        color: #fff;
+        text-align: right;
+        line-height: 8px; /* same as #progressBar height if we want text middle aligned */
+        width: 100%;
+        background-color: #0099ff;
+}
+
+/*
+	@version - 0.1
+	@author - Jovan Stojanovic - http:jovanstojanovic.com
+	@twitter -  @joshica
+ */
+
+.tiny-green {
+    position: relative;
+    height: 2px !important;
+
+	background-image:-moz-linear-gradient(53% 13% -90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
+	background-image:-webkit-gradient(linear,53% 13%,53% 79%,color-stop(0, rgb(58,64,80)),color-stop(0.47, rgb(58,64,80)),color-stop(0.48, rgb(46,50,62)),color-stop(1, rgb(46,50,62)));
+	background-image:-webkit-linear-gradient(-90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
+	background-image:linear-gradient(-180deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
+/*
+	-moz-border-radius: 10px; /* Firefox */
+/*	-webkit-border-radius: 10px; /* Webkit */
+/*	border-radius: 10px; */
+}
+
+.tiny-green div {
+
+	font-family: arial;
+	font-size: 3px;
+	color: white;
+	text-align: right;
+	text-shadow: 0px 0px 2px #000;
+	text-indent: 9999px;
+	overflow: hidden;
+
+	background-image:-webkit-gradient(linear,71% 25%,71% 69%,color-stop(0, rgb(118,177,1)),color-stop(0.47, rgb(118,177,1)),color-stop(0.48, rgb(102,153,0)),color-stop(1, rgb(102,153,0)));
+	background-image:-webkit-linear-gradient(-90deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
+	background-image:-moz-linear-gradient(71% 25% -180deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
+	background-image:linear-gradient(-180deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
+
+	-moz-border-radius: 10px; /* Firefox */
+	-webkit-border-radius: 10px; /* Webkit */
+	border-radius: 10px;
+}
+</style>
 
 <a name="maincontent"></a>
 
@@ -6,7 +63,7 @@
 
 <p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
-<!-- IF S_CRON_TASKS -->
+<!-- IF .ready or .not_ready -->
 <table class="table1">
 	<col class="row1">
 	<col class="row1">
@@ -14,18 +71,21 @@
 	<thead>
 		<tr>
 			<th>{L_CRON_TASK_NAME}</th>
-			<th style="text-align: center; width: 30%;">{L_CRON_TASK_DATE}</th>
-            <th style="text-align: center; width: 30%;">{L_CRON_NEW_DATE}</th>
+			<th style="text-align: center; width: 200px;">{L_CRON_TASK_DATE}</th>
+            <th style="text-align: center; width: 200px;">{L_CRON_NEW_DATE}</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!-- IF .ready -->
 		<tr>
-			<td class="row3" colspan="3"><strong>{L_CRON_STATUS_READY_TASKS}</strong></td>
+			<td class="row3" colspan="3"><strong>{L_CRON_STATUS_READY_TASKS}</strong>
+            <div id="progressBar" class="tiny-green"><div></div></div>
+       		<!-- INCLUDEJS js/cron_status.js -->
+            </td>
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
-			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong></td>
+			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> &infin;<!-- ENDIF --></td>
 			<td style="text-align: center;">{ready.TASK_DATE}</td>
             <td style="text-align: center;">{ready.NEW_DATE}</td>
 		</tr>
@@ -37,7 +97,7 @@
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>
-			<td><strong style ="color: <!-- IF not_ready.NEW_DATE -->#228822;<!-- ELSE -->#BC2A4D;<!-- ENDIF -->">{not_ready.DISPLAY_NAME}</strong></td>
+			<td><strong style ="color: <!-- IF not not_ready.NEW_DATE or not_ready.LOCKED -->#BC2A4D;<!-- ELSE -->#228822;<!-- ENDIF -->">{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <span title="Locked">&infin;</span><!-- ENDIF --></td>
 			<td style="text-align: center;">{not_ready.TASK_DATE}</td>
             <td style="text-align: center;">{not_ready.NEW_DATE}</td>
 		</tr>
