@@ -8,7 +8,7 @@
 
 <a name="maincontent"></a>
 
-<h1>{L_ACP_CRON_STATUS_TITLE}<i id="circle" class="fa fa-circle-o-notch fa-spin" title="{L_CRON_STATUS_REFRESH}"></i><span id="ProgressStatus">60</span></h1>
+<h1>{L_ACP_CRON_STATUS_TITLE}<i id="circle" class="fa fa-circle-o-notch fa-spin"></i><span id="ProgressStatus" title="{L_CRON_STATUS_REFRESH}">60</span></h1>
 
 <p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
@@ -43,7 +43,7 @@
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>
-			<td><strong<!-- IF not not_ready.NEW_DATE or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_LOCKED}"></i><!-- ENDIF --></td>
+			<td><strong<!-- IF not_ready.TASK_OK or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_LOCKED}"></i><!-- ENDIF --></td>
 			<td>{not_ready.TASK_DATE}</td>
             <td><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>

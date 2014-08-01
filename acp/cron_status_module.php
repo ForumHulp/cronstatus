@@ -63,7 +63,6 @@ class cron_status_module
 				$cronlock = str_replace(array('_last_gc', 'prune_notification', 'last_queue_run'), array('', 'read_notifications', 'queue_interval'), $cronlock['config_name']);
 			}
 
-			$not_ready_tasks = $ready_tasks = array();
 			foreach ($tasks as $task)
 			{
 				$task_name = $task->get_name();
@@ -97,6 +96,7 @@ class cron_status_module
 					'TASK_DATE'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
 										$user->format_date($task_date, $config['cron_status_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
 					'NEW_DATE'		=> ($task_date) ? $user->format_date(($task_date + $this->array_find($name, $rows)), $config['cron_status_dateformat']) : '',
+					'TASK_OK'		=> ($task_date > 0 && (($task_date + $this->array_find($name, $rows)) > time())) ? false : true,
 					'LOCKED'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false,
 				));
 			}

@@ -80,7 +80,7 @@ class listener implements EventSubscriberInterface
 		$task = $this->array_find($task, $not_ready_tasks);
 
 		$this->template->assign_vars(array(
-			'CRON_TIME' => (sizeof($time) == 2) ? $this->user->format_date((int) $time[0], $config['cron_status_dateformat']) : false,
+			'CRON_TIME' => (sizeof($time) == 2) ? $this->user->format_date((int) $time[0], $this->config['cron_status_dateformat']) : false,
 			'CRON_NAME' => $task
 		));
 	}
@@ -104,10 +104,10 @@ class listener implements EventSubscriberInterface
 			/* We add a new legend, but we need to search for the last legend instead of hard-coding */
 			$submit_key = array_search('ACP_SUBMIT_CHANGES', $display_vars['vars']);
 			$submit_legend_number = substr($submit_key, 6);
-			$display_vars['vars']['legend'.$submit_legend_number] = 'CRON_STATUS_LEGEND';
+			$display_vars['vars']['legend'.$submit_legend_number] = 'ACP_CRON_STATUS_TITLE';
 			$new_vars = array(
-				'cron_status_dateformat'				=> array('lang' => 'CRON_STATUS_DATE_FORMAT',	'validate' => 'string',	'type' => 'custom', 'method' => 'dateformat_select', 'explain' => false),
-				'cron_status_main_notice'				=> array('lang' => 'CRON_STATUS_MAIN_NOTICE',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+				'cron_status_dateformat'	=> array('lang' => 'CRON_STATUS_DATE_FORMAT',	'validate' => 'string',	'type' => 'custom', 'method' => 'dateformat_select', 'explain' => true),
+				'cron_status_main_notice'	=> array('lang' => 'CRON_STATUS_MAIN_NOTICE',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
 				'legend'.($submit_legend_number + 1)	=> 'ACP_SUBMIT_CHANGES',
 			);
 			$display_vars['vars'] = insert_config_array($display_vars['vars'], $new_vars, array('after' => $submit_key));
