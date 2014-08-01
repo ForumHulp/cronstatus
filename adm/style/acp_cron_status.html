@@ -3,11 +3,12 @@
 <!-- ELSE -->
 <!-- INCLUDECSS css/font-awesome.min.css -->
 <!-- ENDIF -->
+<!-- INCLUDECSS css/cron_status.css -->
 <!-- INCLUDE overall_header.html -->
 
 <a name="maincontent"></a>
 
-<h1 style="position: relative;">{L_ACP_CRON_STATUS_TITLE}<i class="fa fa-circle-o-notch fa-spin" style="float: right; font-size: 30px;"></i><span id="ProgressStatus" style="position: absolute; z-index: 2; top: 2px; right: 8px; font-size: 12px; font-weight: bold;"></span></h1>
+<h1>{L_ACP_CRON_STATUS_TITLE}<i id="circle" class="fa fa-circle-o-notch fa-spin" title="{L_CRON_STATUS_REFRESH}"></i><span id="ProgressStatus">60</span></h1>
 
 <p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
@@ -19,40 +20,38 @@
 	<thead>
 		<tr>
 			<th>{L_CRON_TASK_NAME}</th>
-			<th style="text-align: center; width: 200px;">{L_CRON_TASK_DATE}</th>
-            <th style="text-align: center; width: 200px;">{L_CRON_NEW_DATE}</th>
+			<th>{L_CRON_TASK_DATE}</th>
+            <th>{L_CRON_NEW_DATE}</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!-- IF .ready -->
 		<tr>
-			<td class="row3" colspan="3">
-				<strong>{L_CRON_STATUS_READY_TASKS}</strong>
-				<!-- INCLUDEJS js/cron_status.js -->
-			</td>
+			<td class="row3" colspan="3"><b>{L_CRON_STATUS_READY_TASKS}</b></td>
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
-			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{CRON_LOCKED}"></i><!-- ENDIF --></td>
-			<td style="text-align: center;">{ready.TASK_DATE}</td>
-            <td style="text-align: center;"><!-- IF ready.NEW_DATE -->{ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
+			<td><strong>{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{CRON_LOCKED}"></i><!-- ENDIF --></td>
+			<td>{ready.TASK_DATE}</td>
+            <td><!-- IF ready.NEW_DATE -->{ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
 		<!-- END ready -->
 		<!-- ENDIF -->
 		<!-- IF .not_ready -->
 		<tr>
-			<td class="row3" colspan="3"><strong>{L_CRON_STATUS_NOT_READY_TASKS}</strong></td>
+			<td class="row3" colspan="3"><b>{L_CRON_STATUS_NOT_READY_TASKS}</b></td>
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>
-			<td><strong style="color: <!-- IF not not_ready.NEW_DATE or not_ready.LOCKED -->#BC2A4D;<!-- ELSE -->#228822;<!-- ENDIF -->">{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{CRON_LOCKED}"></i><!-- ENDIF --></td>
-			<td style="text-align: center;">{not_ready.TASK_DATE}</td>
-            <td style="text-align: center;"><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
+			<td><strong<!-- IF not not_ready.NEW_DATE or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_LOCKED}"></i><!-- ENDIF --></td>
+			<td>{not_ready.TASK_DATE}</td>
+            <td><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
 		<!-- END not_ready -->
 		<!-- ENDIF -->
 	</tbody>
 </table>
+<!-- INCLUDEJS js/cron_status.js -->
 <!-- ELSE -->
 <div class="errorbox">
 	<h3>{L_CRON_STATUS_NO_TASKS}</h3>
