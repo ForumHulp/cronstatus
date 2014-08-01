@@ -25,6 +25,8 @@ class cron_status extends \phpbb\db\migration\migration
 	{
 		return array(
 			array('config.add', array('cron_status_version', '3.1.0')),
+			array('config.add', array('cron_status_dateformat', '|d M Y|, H:i')),
+			array('config.add', array('cron_status_main_notice', 'true')),
 			array('module.add', array('acp', 'ACP_CAT_MAINTENANCE', 'ACP_CRON_STATUS_TITLE')),
 			array('module.add', array(
 				'acp', 'ACP_CRON_STATUS_TITLE', array(
