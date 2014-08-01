@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class listener implements EventSubscriberInterface
 {
 	protected $config;
-    protected $helper;
+	protected $helper;
 	protected $user;
 	protected $template;
 	protected $db;
@@ -45,7 +45,8 @@ class listener implements EventSubscriberInterface
     {
         return array(
 			'core.user_setup'					=> 'load_language_on_setup',
-			'core.acp_main_notice'				=> 'load_cron_status'
+			'core.acp_main_notice'				=> 'load_cron_status',
+			'core.acp_board_config_edit_add'	=> 'add_config',
 		);
     }
 
@@ -54,7 +55,7 @@ class listener implements EventSubscriberInterface
 
 		$tasks = $this->cron_manager->get_tasks();
 
-		if (empty($tasks) || !$this->config['cron_lock'])
+		if (empty($tasks) || !$this->config['cron_lock'] || !$this->config['cron_status_main_notice'])
 		{
 			return;
 		}
@@ -79,7 +80,7 @@ class listener implements EventSubscriberInterface
 		$task = $this->array_find($task, $not_ready_tasks);
 
 		$this->template->assign_vars(array(
-			'CRON_TIME' => (sizeof($time) == 2) ? $this->user->format_date((int) $time[0]) : false,
+			'CRON_TIME' => (sizeof($time) == 2) ? $this->user->format_date((int) $time[0], $config['cron_status_dateformat']) : false,
 			'CRON_NAME' => $task
 		));
 	}
@@ -94,7 +95,54 @@ class listener implements EventSubscriberInterface
 		}
 		return false;
 	}
-	
+
+	public function add_config($event)
+	{
+		if($event['mode'] == 'settings')
+		{
+			$display_vars = $event['display_vars'];
+			/* We add a new legend, but we need to search for the last legend instead of hard-coding */
+			$submit_key = array_search('ACP_SUBMIT_CHANGES', $display_vars['vars']);
+			$submit_legend_number = substr($submit_key, 6);
+			$display_vars['vars']['legend'.$submit_legend_number] = 'CRON_STATUS_LEGEND';
+			$new_vars = array(
+				'cron_status_dateformat'				=> array('lang' => 'CRON_STATUS_DATE_FORMAT',	'validate' => 'string',	'type' => 'custom', 'method' => 'dateformat_select', 'explain' => false),
+				'cron_status_main_notice'				=> array('lang' => 'CRON_STATUS_MAIN_NOTICE',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
+				'legend'.($submit_legend_number + 1)	=> 'ACP_SUBMIT_CHANGES',
+			);
+			$display_vars['vars'] = $this->insert_config_array($display_vars['vars'], $new_vars, array('after' => $submit_key));
+			$event['display_vars'] = $display_vars;
+		}
+	}
+
+	/**
+	 * Inserts new config display_vars into an exisiting display_vars array
+	 * at the given position.
+	 * NOTE: this function is temporary until an official one will come out.
+	 *
+	 * @param array $display_vars An array of existing config display vars
+	 * @param array $add_config_vars An array of new config display vars
+	 * @param array $where Where to place the new config vars,
+	 *              before or after an exisiting config, as an array
+	 *              of the form: array('after' => 'config_name') or
+	 *              array('before' => 'config_name').
+	 * @return array The array of config display vars
+	 */
+	public function insert_config_array($display_vars, $add_config_vars, $where)
+	{
+		if (is_array($where) && array_key_exists(current($where), $display_vars))
+		{
+			$position = array_search(current($where), array_keys($display_vars)) + ((key($where) == 'before') ? 0 : 1);
+			$display_vars = array_merge(
+				array_slice($display_vars, 0, $position),
+				$add_config_vars,
+				array_slice($display_vars, $position)
+			);
+		}
+		return $display_vars;
+	}
+
+
 	public function load_language_on_setup($event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];

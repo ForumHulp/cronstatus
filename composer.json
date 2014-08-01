@@ -12,6 +12,11 @@
 			"username": "John P",
 			"email": "info@forumhulp.com",
 			"role": "Developer"
+		},
+		{
+			"name": "Igor Lavrov",
+			"homepage": "https://github.com/lavigor",
+			"role": "Developer"
 		}
 	],
 	"require": {

@@ -1,65 +1,13 @@
+<!-- IF S_ALLOW_CDN -->
+<!-- INCLUDECSS //maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css -->
+<!-- ELSE -->
+<!-- INCLUDECSS css/font-awesome.min.css -->
+<!-- ENDIF -->
 <!-- INCLUDE overall_header.html -->
-<style>
-#progressBar {
-        width: 100%;
-        height: 8px;
- /*       border: 1px solid #111;*/
-        background-color: #292929;
-}
- 
-#progressBar div {
-        height: 100%;
-        color: #fff;
-        text-align: right;
-        line-height: 8px; /* same as #progressBar height if we want text middle aligned */
-        width: 100%;
-        background-color: #0099ff;
-}
-
-/*
-	@version - 0.1
-	@author - Jovan Stojanovic - http:jovanstojanovic.com
-	@twitter -  @joshica
- */
-
-.tiny-green {
-    position: relative;
-    height: 2px !important;
-
-	background-image:-moz-linear-gradient(53% 13% -90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
-	background-image:-webkit-gradient(linear,53% 13%,53% 79%,color-stop(0, rgb(58,64,80)),color-stop(0.47, rgb(58,64,80)),color-stop(0.48, rgb(46,50,62)),color-stop(1, rgb(46,50,62)));
-	background-image:-webkit-linear-gradient(-90deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
-	background-image:linear-gradient(-180deg,rgb(58,64,80) 0%,rgb(58,64,80) 47%,rgb(46,50,62) 48%,rgb(46,50,62) 100%);
-/*
-	-moz-border-radius: 10px; /* Firefox */
-/*	-webkit-border-radius: 10px; /* Webkit */
-/*	border-radius: 10px; */
-}
-
-.tiny-green div {
-
-	font-family: arial;
-	font-size: 3px;
-	color: white;
-	text-align: right;
-	text-shadow: 0px 0px 2px #000;
-	text-indent: 9999px;
-	overflow: hidden;
-
-	background-image:-webkit-gradient(linear,71% 25%,71% 69%,color-stop(0, rgb(118,177,1)),color-stop(0.47, rgb(118,177,1)),color-stop(0.48, rgb(102,153,0)),color-stop(1, rgb(102,153,0)));
-	background-image:-webkit-linear-gradient(-90deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
-	background-image:-moz-linear-gradient(71% 25% -180deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
-	background-image:linear-gradient(-180deg,rgb(118,177,1) 0%,rgb(118,177,1) 47%,rgb(102,153,0) 48%,rgb(102,153,0) 100%);
-
-	-moz-border-radius: 10px; /* Firefox */
-	-webkit-border-radius: 10px; /* Webkit */
-	border-radius: 10px;
-}
-</style>
 
 <a name="maincontent"></a>
 
-<h1>{L_ACP_CRON_STATUS_TITLE}</h1>
+<h1 style="position: relative;">{L_ACP_CRON_STATUS_TITLE}<i class="fa fa-circle-o-notch fa-spin" style="float: right; font-size: 30px;"></i><span id="ProgressStatus" style="position: absolute; z-index: 2; top: 2px; right: 8px; font-size: 12px; font-weight: bold;"></span></h1>
 
 <p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
@@ -78,16 +26,16 @@
 	<tbody>
 		<!-- IF .ready -->
 		<tr>
-			<td class="row3" colspan="3"><strong>{L_CRON_STATUS_READY_TASKS}</strong>
-            <div id="progressBar" class="tiny-green"><div></div></div>
-       		<!-- INCLUDEJS js/cron_status.js -->
-            </td>
+			<td class="row3" colspan="3">
+				<strong>{L_CRON_STATUS_READY_TASKS}</strong>
+				<!-- INCLUDEJS js/cron_status.js -->
+			</td>
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
-			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> &infin;<!-- ENDIF --></td>
+			<td><strong style="color: #228822;">{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{CRON_LOCKED}"></i><!-- ENDIF --></td>
 			<td style="text-align: center;">{ready.TASK_DATE}</td>
-            <td style="text-align: center;">{ready.NEW_DATE}</td>
+            <td style="text-align: center;"><!-- IF ready.NEW_DATE -->{ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
 		<!-- END ready -->
 		<!-- ENDIF -->
@@ -97,9 +45,9 @@
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>
-			<td><strong style ="color: <!-- IF not not_ready.NEW_DATE or not_ready.LOCKED -->#BC2A4D;<!-- ELSE -->#228822;<!-- ENDIF -->">{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <span title="Locked">&infin;</span><!-- ENDIF --></td>
+			<td><strong style="color: <!-- IF not not_ready.NEW_DATE or not_ready.LOCKED -->#BC2A4D;<!-- ELSE -->#228822;<!-- ENDIF -->">{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{CRON_LOCKED}"></i><!-- ENDIF --></td>
 			<td style="text-align: center;">{not_ready.TASK_DATE}</td>
-            <td style="text-align: center;">{not_ready.NEW_DATE}</td>
+            <td style="text-align: center;"><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
 		<!-- END not_ready -->
 		<!-- ENDIF -->
