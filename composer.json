@@ -1,10 +1,10 @@
 {
 	"name": "forumhulp/cron_status",
 	"type": "phpbb-extension",
-	"description": "Cron Status shows a notification on main page of acp panel when a cron job is locked. It shows the time when the cron started and which cron was the problem. In Maintenance Panel Cron Status display's a overview of the boards Cron Jobs",
+	"description": "Cron Status displays an overview of Board's Cron Jobs in Maintenance module of ACP. This extension also shows a notification on the main page of ACP when a cron job is locked (optionally). It shows the time when the cron task started and which cron task was the problem.",
 	"homepage": "http://forumhulp.com",
 	"version": "3.1.0",
-	"keywords": ["forumhulp", "phpbb", "extension", "users"],
+	"keywords": ["forumhulp", "phpbb", "extension", "cron", "status"],
 	"license": "GPL-2.0",
 	"authors": [
 		{
