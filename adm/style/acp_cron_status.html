@@ -31,7 +31,7 @@
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
-			<td><strong>{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{CRON_LOCKED}"></i><!-- ENDIF --></td>
+			<td><strong>{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_TASK_LOCKED}"></i><!-- ENDIF --></td>
 			<td>{ready.TASK_DATE}</td>
             <td><!-- IF ready.NEW_DATE -->{ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
@@ -43,7 +43,7 @@
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>
-			<td><strong<!-- IF not_ready.TASK_OK or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_LOCKED}"></i><!-- ENDIF --></td>
+			<td><strong<!-- IF not_ready.TASK_OK or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_TASK_LOCKED}"></i><!-- ENDIF --></td>
 			<td>{not_ready.TASK_DATE}</td>
             <td><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
