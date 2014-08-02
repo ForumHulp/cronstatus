@@ -95,8 +95,9 @@ class cron_status_module
 					'DISPLAY_NAME'	=> $task_name,
 					'TASK_DATE'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
 										$user->format_date($task_date, $config['cron_status_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
-					'NEW_DATE'		=> ($task_date) ? $user->format_date(($task_date + $this->array_find($name, $rows)), $config['cron_status_dateformat']) : '',
-					'TASK_OK'		=> ($task_date > 0 && (($task_date + $this->array_find($name, $rows)) > time())) ? false : true,
+					'NEW_DATE'		=> (($task_date > 0 && $name != 'queue_interval') || ($name == 'queue_interval' && $task->is_ready())) ? 
+										$user->format_date(($task_date + $this->array_find($name, $rows)), $config['cron_status_dateformat']) : '',
+					'TASK_OK'		=> ($task_date > 0 && ($task_date + $this->array_find($name, $rows) > time()) || ($name == 'queue_interval' && !$task->is_ready())) ? false : true,
 					'LOCKED'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false,
 				));
 			}
