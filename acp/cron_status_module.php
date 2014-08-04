@@ -18,10 +18,14 @@ class cron_status_module
 
 		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
 		$this->tpl_name = 'acp_cron_status';
+		
+		$sk = request_var('sk', 'display_name');
+		$sd = request_var('sd', 'a');
+		
 		// Refreshing the page every 60 seconds...
-		meta_refresh(60, $this->u_action);
+		meta_refresh(60, $this->u_action . '&amp;sk=' . $sk . '&amp;sd='. $sd);
 
-		$tasks = array();
+		$tasks = $task_aray = array();
 		$tasks = $phpbb_container->get('cron.manager')->get_tasks();
 
 		if (sizeof($tasks))
@@ -62,7 +66,7 @@ class cron_status_module
 				$cronlock = $this->maxValueInArray($rows, 'config_value');
 				$cronlock = str_replace(array('_last_gc', 'prune_notification', 'last_queue_run'), array('', 'read_notifications', 'queue_interval'), $cronlock['config_name']);
 			}
-
+			
 			foreach ($tasks as $task)
 			{
 				$task_name = $task->get_name();
@@ -91,17 +95,76 @@ class cron_status_module
 					$task_date = (int) $this->array_find($name . '_last_gc', $rows);
 				}
 				
-				$template->assign_block_vars(($task->is_ready()) ? 'ready' : 'not_ready', array(
-					'DISPLAY_NAME'	=> $task_name,
-					'TASK_DATE'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
-										$user->format_date($task_date, $config['cron_status_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
-					'NEW_DATE'		=> (($task_date > 0 && $name != 'queue_interval') || ($name == 'queue_interval' && $task->is_ready())) ? 
-										$user->format_date(($task_date + $this->array_find($name, $rows)), $config['cron_status_dateformat']) : '',
-					'TASK_OK'		=> ($task_date > 0 && ($task_date + $this->array_find($name, $rows) > time()) || ($name == 'queue_interval' && !$task->is_ready())) ? false : true,
-					'LOCKED'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false,
+				$task_aray[] = array(
+					'task_sort' => ($task->is_ready()) ? 'ready' : 'not_ready',
+					'display_name' => $task_name,
+					'task_date' => ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
+									$user->format_date($task_date, $config['cron_status_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
+					'new_date' => (($task_date > 0 && $name != 'queue_interval') || ($name == 'queue_interval' && $task->is_ready())) ? 
+											$user->format_date(($task_date + $this->array_find($name, $rows)), $config['cron_status_dateformat']) : '-',
+					'task_ok' => ($task_date > 0 && ($task_date + $this->array_find($name, $rows) > time()) || ($name == 'queue_interval' && !$task->is_ready())) ? 0 : 1,
+					'locked' => ($config['cron_lock'] && $cronlock == $name) ? 1 : 0
+				);
+			}
+   			unset($tasks, $rows);
+			
+			$task_aray = $this->array_sort($task_aray, $sk, (($sd == 'a') ? SORT_ASC : SORT_DESC));
+			
+			foreach($task_aray as $row)
+			{
+				$template->assign_block_vars($row['task_sort'], array(
+					'DISPLAY_NAME'	=> $row['display_name'],
+					'TASK_DATE'		=> $row['task_date'],
+					'NEW_DATE'		=> $row['new_date'],
+					'TASK_OK'		=> $row['task_ok'],
+					'LOCKED'		=> $row['locked'],
 				));
 			}
 		}
+		$template->assign_vars(array('U_ACTION' => $this->u_action));
+	}
+
+
+	function array_sort($array, $on, $order=SORT_ASC)
+	{
+		$new_array = array();
+		$sortable_array = array();
+	
+		if (count($array) > 0) 
+		{
+			foreach ($array as $k => $v) 
+			{
+				if (is_array($v)) 
+				{
+					foreach ($v as $k2 => $v2) 
+					{
+						if ($k2 == $on) 
+						{
+							$sortable_array[$k] = $v2;
+						}
+					}
+				} else 
+				{
+					$sortable_array[$k] = $v;
+				}
+			}
+	
+			switch ($order) 
+			{
+				case SORT_ASC:
+					asort($sortable_array);
+				break;
+				case SORT_DESC:
+					arsort($sortable_array);
+				break;
+			}
+	
+			foreach ($sortable_array as $k => $v) 
+			{
+				$new_array[$k] = $array[$k];
+			}
+		}
+		return $new_array;
 	}
 
 	public function maxValueInArray($array, $keyToSearch)
