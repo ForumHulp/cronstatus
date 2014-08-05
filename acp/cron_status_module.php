@@ -61,12 +61,17 @@ class cron_status_module
 			);			
 			$db->sql_freeresult($result);
 
+			$rows[] = array(
+				"config_name"	=> "plupload_gc",
+				"config_value"	=> 86400
+			);			
+
 			if ($config['cron_lock'])
 			{
 				$cronlock = $this->maxValueInArray($rows, 'config_value');
 				$cronlock = str_replace(array('_last_gc', 'prune_notification', 'last_queue_run'), array('', 'read_notifications', 'queue_interval'), $cronlock['config_name']);
 			}
-			
+		
 			foreach ($tasks as $task)
 			{
 				$task_name = $task->get_name();
@@ -97,13 +102,14 @@ class cron_status_module
 				
 				$task_aray[] = array(
 					'task_sort' => ($task->is_ready()) ? 'ready' : 'not_ready',
-					'display_name' => $task_name,
-					'task_date' => ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
+					'display_name'	=> $task_name,
+					'task_date'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
 									$user->format_date($task_date, $config['cron_status_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
-					'new_date' => (($task_date > 0 && $name != 'queue_interval') || ($name == 'queue_interval' && $task->is_ready())) ? 
-											$user->format_date(($task_date + $this->array_find($name, $rows)), $config['cron_status_dateformat']) : '-',
-					'task_ok' => ($task_date > 0 && ($task_date + $this->array_find($name, $rows) > time()) || ($name == 'queue_interval' && !$task->is_ready())) ? 0 : 1,
-					'locked' => ($config['cron_lock'] && $cronlock == $name) ? 1 : 0
+					'new_date'		=> (($task_date > 0 && $name != 'queue_interval') || ($name == 'queue_interval' && $task->is_ready())) ? 
+									$user->format_date(($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows)), $config['cron_status_dateformat']) : '-',
+					'task_ok'		=> ($task_date > 0 && ($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) > time()) || 
+									($name == 'queue_interval' && !$task->is_ready())) ? false : true,
+					'locked'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false
 				);
 			}
    			unset($tasks, $rows);
@@ -121,7 +127,7 @@ class cron_status_module
 				));
 			}
 		}
-		$template->assign_vars(array('U_ACTION' => $this->u_action));
+		$template->assign_vars(array('U_ACTION' => $this->u_action, 'U_NAME' => $sk, 'U_SORT' => $sd));
 	}
 
 

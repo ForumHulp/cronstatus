@@ -12,5 +12,6 @@ h1 {position: relative;}
 
 .fa-lock {color:#BC2A4D;}
 
-.fa-arrow-up, .fa-arrow-down {float:right; color:#fff;}
-.a fa-arrow-up, .a fa-arrow-down )color:#fff;}
+.fa-arrow-up, .fa-arrow-down {float:right; color:#fff; padding: 0 2px;}
+
+#act-arrow {color:#CECECE;}
