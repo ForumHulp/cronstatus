@@ -34,7 +34,7 @@
 	<tbody>
 		<!-- IF .ready -->
 		<tr>
-			<td class="row3" colspan="3"><b>{L_CRON_STATUS_READY_TASKS}</b></td>
+			<td class="row3" colspan="3"><b>{L_CRON_STATUS_READY_TASKS}</b><span id="date" style="float:right" title="{L_CRON_TASK_DATE_TIME}">&nbsp;</span></td>
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
@@ -46,7 +46,7 @@
 		<!-- ENDIF -->
 		<!-- IF .not_ready -->
 		<tr>
-			<td class="row3" colspan="3"><b>{L_CRON_STATUS_NOT_READY_TASKS}</b></td>
+			<td class="row3" colspan="3"><b>{L_CRON_STATUS_NOT_READY_TASKS}</b><!-- IF not .ready --><span id="date" style="float:right" title="{L_CRON_TASK_DATE_TIME}">&nbsp;</span><!-- ENDIF --></td>
 		</tr>
 		<!-- BEGIN not_ready -->
 		<tr>

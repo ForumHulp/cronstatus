@@ -37,7 +37,7 @@
  background-color: #222;
 }
 .sd_loading{
- background: url('../images/indicator.gif') center no-repeat;
+ background: url('images/indicator.gif') center no-repeat;
  background-color: #fff;
  height: 60px;
  width: 60px;

@@ -21,12 +21,13 @@ class cron_status_module
 		
 		$sk = request_var('sk', 'display_name');
 		$sd = request_var('sd', 'a');
-		
-		
+				
 		$action = request_var('action', '');
 		
-		if ($action == 'details')
+		switch ($action)
 		{
+			case 'details':
+
 			$user->add_lang('acp/extensions');
 			$ext_name = 'forumhulp\cron_status';
 			$md_manager = new \phpbb\extension\metadata_manager($ext_name, $config, $phpbb_extension_manager, $template, $user, $phpbb_root_path);
@@ -66,13 +67,12 @@ class cron_status_module
 
 			$template->assign_vars(array(
 				'U_BACK'				=> $this->u_action . '&amp;action=list',
-				'U_VERSIONCHECK_FORCE'	=> $this->u_action . '&amp;action=details&amp;versioncheck_force=1&amp;ext_name=' . urlencode($md_manager->get_metadata('name')),
 			));
 
 			$this->tpl_name = 'acp_ext_details';
-			
-		}
+			break;
 		
+		default:
 		// Refreshing the page every 60 seconds...
 		meta_refresh(60, $this->u_action . '&amp;sk=' . $sk . '&amp;sd='. $sd);
 
@@ -122,7 +122,7 @@ class cron_status_module
 				$cronlock = $this->maxValueInArray($rows, 'config_value');
 				$cronlock = str_replace(array('_last_gc', 'prune_notification', 'last_queue_run'), array('', 'read_notifications', 'queue_interval'), $cronlock['config_name']);
 			}
-		
+
 			foreach ($tasks as $task)
 			{
 				$task_name = $task->get_name();
@@ -179,6 +179,7 @@ class cron_status_module
 			}
 		}
 		$template->assign_vars(array('U_ACTION' => $this->u_action, 'U_NAME' => $sk, 'U_SORT' => $sd));
+		}
 	}
 
 

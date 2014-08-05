@@ -22,7 +22,7 @@ $lang = array_merge($lang, array(
 	'CRON_TIME_LOCKED'					=> 'Taak tijd geblokkeerd',
 	'ACP_CRON_STATUS_TITLE'				=> 'Cron Status',
 	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Controleer Cron Status',
-	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status is een pagina in je phpBB forum die je een overzicht bied van taken in je forum. De \'Auto\' vermelding betekent dat er geen geldige tijd- datum is gevonden door de Cron Status extensie. Taken worden in de kleur rood of groen weergegeven. Rood betekent dat de taak nog nooit is gestart of er een probleem mee is. Een geblokeerde taak heeft een rood slotje achter zijn naam staan.',
+	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status bied je een overzicht van taken in je forum. De \'Auto\' vermelding betekent dat er geen geldige tijd- datum is gevonden door de Cron Status extensie. Taken worden in de kleur rood of groen weergegeven. Rood betekent dat de taak nog nooit is gestart of er een probleem mee is. Een geblokkeerde taak heeft een rood slotje achter zijn naam staan.',
 	'CRON_STATUS_REFRESH'				=> 'Seconden voor verversen pagina',
 	'CRON_TASK_LOCKED'					=> 'Taak geblokkeerd',
 	'CRON_STATUS_READY_TASKS'			=> 'Taken klaar om te starten',
@@ -37,4 +37,5 @@ $lang = array_merge($lang, array(
 	'CRON_NEW_DATE'						=> 'Nieuwe taak datum',
 	'CRON_TASK_NEVER_STARTED'			=> 'Nooit gestart',
 	'CRON_TASK_AUTO'					=> 'Auto',
+	'CRON_TASK_DATE_TIME'				=> 'Huidige datum & tijd'
 ));

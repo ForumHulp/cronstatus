@@ -22,7 +22,7 @@ $lang = array_merge($lang, array(
 	'CRON_TIME_LOCKED'					=> 'Cron time locked',
 	'ACP_CRON_STATUS_TITLE'				=> 'Cron Status',
 	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Check Cron Status',
-	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status is a page of your phpBB Board where you can check if cron tasks are ready to be done. The \'Auto\' last task date means that the task has a specific time control option that couldn\'t be recognized by Cron Status extension.',
+	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status is a page of your phpBB Board where you can check if cron tasks are ready to be done. The \'Auto\' last task date means that the task has a specific time control option that couldn\'t be recognized by Cron Status extension. A red marked task means a task which never started or which has a problem. A red lock means this task is locked by cron manager and blocks other tasks.',
 	'CRON_STATUS_REFRESH'				=> 'Seconds for refresh',
 	'CRON_TASK_LOCKED'					=> 'Cron task locked',
 	'CRON_STATUS_READY_TASKS'			=> 'Tasks ready to run',
@@ -37,4 +37,5 @@ $lang = array_merge($lang, array(
 	'CRON_NEW_DATE'						=> 'New task date',
 	'CRON_TASK_NEVER_STARTED'			=> 'Never started',
 	'CRON_TASK_AUTO'					=> 'Auto',
+	'CRON_TASK_DATE_TIME'				=> 'Current date & time'
 ));
