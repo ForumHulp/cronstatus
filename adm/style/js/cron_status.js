@@ -10,4 +10,11 @@
 		time--;
 	}
 	setInterval(progress, 1000);
+	
+		$("a.simpledialog").simpleDialog({
+	    opacity: 0.1,
+	    width: '650px',
+		height: '730px'
+	});
+
 })(jQuery, window, document);

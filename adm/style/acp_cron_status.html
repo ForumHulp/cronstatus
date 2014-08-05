@@ -4,6 +4,8 @@
 <!-- INCLUDECSS css/font-awesome.min.css -->
 <!-- ENDIF -->
 <!-- INCLUDECSS css/cron_status.css -->
+<!-- INCLUDECSS css/jquery.simpledialog.css -->
+
 <!-- INCLUDE overall_header.html -->
 
 <a name="maincontent"></a>
@@ -13,6 +15,7 @@
 <p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
 <!-- IF .ready or .not_ready -->
+<a href="{U_ACTION}&amp;action=details" style="float:right" class="simpledialog">Info</a>
 <table class="table1">
 	<col class="row1">
 	<col class="row1">
@@ -55,6 +58,7 @@
 		<!-- ENDIF -->
 	</tbody>
 </table>
+<!-- INCLUDEJS js/jquery.simpledialog.js -->
 <!-- INCLUDEJS js/cron_status.js -->
 <!-- ELSE -->
 <div class="errorbox">

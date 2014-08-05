@@ -14,13 +14,64 @@ class cron_status_module
 	public $u_action;
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $template, $request, $phpbb_container;
+		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpbb_extension_manager, $phpbb_container;
 
 		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
 		$this->tpl_name = 'acp_cron_status';
 		
 		$sk = request_var('sk', 'display_name');
 		$sd = request_var('sd', 'a');
+		
+		
+		$action = request_var('action', '');
+		
+		if ($action == 'details')
+		{
+			$user->add_lang('acp/extensions');
+			$ext_name = 'forumhulp\cron_status';
+			$md_manager = new \phpbb\extension\metadata_manager($ext_name, $config, $phpbb_extension_manager, $template, $user, $phpbb_root_path);
+			try
+			{
+				$this->metadata = $md_manager->get_metadata('all');
+			}
+			catch(\phpbb\extension\exception $e)
+			{
+				trigger_error($e, E_USER_WARNING);
+			}
+
+			$md_manager->output_template_data();
+
+			try
+			{
+				$updates_available = $this->version_check($md_manager, $request->variable('versioncheck_force', false));
+
+				$template->assign_vars(array(
+					'S_UP_TO_DATE'		=> empty($updates_available),
+					'S_VERSIONCHECK'	=> true,
+					'UP_TO_DATE_MSG'	=> $user->lang(empty($updates_available) ? 'UP_TO_DATE' : 'NOT_UP_TO_DATE', $md_manager->get_metadata('display-name')),
+				));
+
+				foreach ($updates_available as $branch => $version_data)
+				{
+					$template->assign_block_vars('updates_available', $version_data);
+				}
+			}
+			catch (\RuntimeException $e)
+			{
+				$template->assign_vars(array(
+					'S_VERSIONCHECK_STATUS'			=> $e->getCode(),
+					'VERSIONCHECK_FAIL_REASON'		=> ($e->getMessage() !== $user->lang('VERSIONCHECK_FAIL')) ? $e->getMessage() : '',
+				));
+			}
+
+			$template->assign_vars(array(
+				'U_BACK'				=> $this->u_action . '&amp;action=list',
+				'U_VERSIONCHECK_FORCE'	=> $this->u_action . '&amp;action=details&amp;versioncheck_force=1&amp;ext_name=' . urlencode($md_manager->get_metadata('name')),
+			));
+
+			$this->tpl_name = 'acp_ext_details';
+			
+		}
 		
 		// Refreshing the page every 60 seconds...
 		meta_refresh(60, $this->u_action . '&amp;sk=' . $sk . '&amp;sd='. $sd);
@@ -199,5 +250,34 @@ class cron_status_module
 			if (strpos($item['config_name'], $needle) !== false) return $haystack[$key]['config_value'];
 		}
 		return false;
+	}
+
+	/**
+	* Check the version and return the available updates.
+	*
+	* @param \phpbb\extension\metadata_manager $md_manager The metadata manager for the version to check.
+	* @param bool $force_update Ignores cached data. Defaults to false.
+	* @param bool $force_cache Force the use of the cache. Override $force_update.
+	* @return string
+	* @throws RuntimeException
+	*/
+	protected function version_check(\phpbb\extension\metadata_manager $md_manager, $force_update = false, $force_cache = false)
+	{
+		global $cache, $config, $user;
+		$meta = $md_manager->get_metadata('all');
+
+		if (!isset($meta['extra']['version-check']))
+		{
+			throw new \RuntimeException($this->user->lang('NO_VERSIONCHECK'), 1);
+		}
+
+		$version_check = $meta['extra']['version-check'];
+
+		$version_helper = new \phpbb\version_helper($cache, $config, $user);
+		$version_helper->set_current_version($meta['version']);
+		$version_helper->set_file_location($version_check['host'], $version_check['directory'], $version_check['filename']);
+		$version_helper->force_stability($config['extension_force_unstable'] ? 'unstable' : null);
+
+		return $updates = $version_helper->get_suggested_updates($force_update, $force_cache);
 	}
 }
