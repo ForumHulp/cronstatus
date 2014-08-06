@@ -21,9 +21,16 @@ class cron_status_module
 		
 		$sk = request_var('sk', 'display_name');
 		$sd = request_var('sd', 'a');
+		$cron_type = request_var('cron_type', '');
+		
+		if ($cron_type)
+		{
+			$url = '/cron.php?cron_type='.$cron_type;
+			$template->assign_var('RUN_CRON_TASK', '<img src="' . $url . '" width="1" height="1" alt="cron" />');
+		}
 				
 		$action = request_var('action', '');
-		
+		//print_r($phpbb_container);
 		switch ($action)
 		{
 			case 'details':
@@ -160,7 +167,7 @@ class cron_status_module
 									$user->format_date(($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows)), $config['cron_status_dateformat']) : '-',
 					'task_ok'		=> ($task_date > 0 && ($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) > time()) || 
 									($name == 'queue_interval' && !$task->is_ready())) ? false : true,
-					'locked'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false
+					'locked'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false,
 				);
 			}
    			unset($tasks, $rows);
@@ -175,6 +182,7 @@ class cron_status_module
 					'NEW_DATE'		=> $row['new_date'],
 					'TASK_OK'		=> $row['task_ok'],
 					'LOCKED'		=> $row['locked'],
+					'CRON_URL'		=> ($row['display_name'] != $cron_type) ? '<a href="' . $this->u_action . '&amp;cron_type=' . $row['display_name'] . '&amp;sk=' . $sk . '&amp;sd='. $sd . '" style="float:right;">Run</a>' : '<span style="float:right;">Running</span>',
 				));
 			}
 		}
