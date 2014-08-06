@@ -25,7 +25,7 @@ class cron_status_module
 		
 		if ($cron_type)
 		{
-			$url = '/cron.php?cron_type='.$cron_type;
+			$url = '../cron.php?cron_type='.$cron_type;
 			$template->assign_var('RUN_CRON_TASK', '<img src="' . $url . '" width="1" height="1" alt="cron" />');
 		}
 				
@@ -36,7 +36,7 @@ class cron_status_module
 			case 'details':
 
 			$user->add_lang('acp/extensions');
-			$ext_name = 'forumhulp\cron_status';
+			$ext_name = 'forumhulp/cron_status';
 			$md_manager = new \phpbb\extension\metadata_manager($ext_name, $config, $phpbb_extension_manager, $template, $user, $phpbb_root_path);
 			try
 			{
