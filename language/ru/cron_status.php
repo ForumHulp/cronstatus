@@ -42,4 +42,6 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_TIMEOUT'				=> 'Тайм-аут обновления',
 	'CRON_STATUS_ERROR_EXPLAIN'			=> 'Во время обновления страницы произошла ошибка.',
 	'CRON_STATUS_DEVELOPERS'			=> 'Разработчики',
+	'CRON_TASK_RUN'						=> 'Выполнить',
+	'CRON_TASK_RUNNING'					=> 'Выполняется...',
 ));

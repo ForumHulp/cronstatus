@@ -35,6 +35,7 @@
 					interval = setInterval(progress, 1000);
 					$(this).html(s);
 					$('#date').text(getISODateTime());
+					$(".cron_run").bind("click", run_cron);
 				}
 			});
 		}
@@ -48,10 +49,10 @@
 		height: '600px'
 	});
 
-	function getISODateTime(d){
+	function getISODateTime(d) {
 		var s = function(a,b){return(1e15+a+"").slice(-b)};
 	
-		if (typeof d === 'undefined'){
+		if (typeof d === 'undefined') {
 			d = new Date();
 		};
 	
@@ -66,4 +67,13 @@
 	// For immediate display
 	$('#date').text(getISODateTime());
 
+	function run_cron(event) {
+		cron_run = this;
+		var cron_task = this.id;
+		$("#run_cron_task").attr("src", "../cron.php?cron_type=" + cron_task);
+		$(".cron_run").css("display", "none");
+		$(this).next().css("display", "block");
+		time = 10;
+	}
+	$(".cron_run").bind("click", run_cron);
 })(jQuery, window, document);

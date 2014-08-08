@@ -60,15 +60,6 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
-		$not_ready_tasks = array();
-		foreach ($tasks as $task)
-		{
-			if (!$task->is_ready())
-			{
-				$not_ready_tasks[] = $task->get_name();
-			}
-		}
-
 		$time = explode(' ', $this->config['cron_lock']);
 
 		$sql = 'SELECT * FROM ' . CONFIG_TABLE . ' where config_name LIKE "%last_gc" ORDER BY config_value DESC LIMIT 1';
@@ -77,7 +68,7 @@ class listener implements EventSubscriberInterface
 		$task = str_replace('_last_gc', '',$row['config_name']);
 		$task = str_replace('read_notification', 'prune_notification', $task);
 
-		$task = $this->array_find($task, $not_ready_tasks);
+		$task = $this->array_find($task, $tasks);
 
 		$this->template->assign_vars(array(
 			'CRON_TIME' => (sizeof($time) == 2) ? $this->user->format_date((int) $time[0], $this->config['cron_status_dateformat']) : false,

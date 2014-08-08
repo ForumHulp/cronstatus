@@ -21,14 +21,6 @@ class cron_status_module
 		
 		$sk = request_var('sk', 'display_name');
 		$sd = request_var('sd', 'a');
-		$cron_type = request_var('cron_type', '');
-		
-		if ($cron_type)
-		{
-			$url = '../cron.php?cron_type='.$cron_type;
-			$template->assign_var('RUN_CRON_TASK', '<img src="' . $url . '" width="1" height="1" alt="cron" />');
-		}
-				
 		$action = request_var('action', '');
 		switch ($action)
 		{
@@ -79,9 +71,6 @@ class cron_status_module
 			break;
 		
 		default:
-		// Refreshing the page every 60 seconds...
-		//meta_refresh(60, $this->u_action . '&amp;sk=' . $sk . '&amp;sd='. $sd);
-		// Now page refreshes are done via Javascript!
 		$view_table = request_var('table', false);
 
 		$tasks = $task_array = array();
@@ -206,7 +195,6 @@ class cron_status_module
 					'NEW_DATE'		=> $row['new_date'],
 					'TASK_OK'		=> $row['task_ok'],
 					'LOCKED'		=> $row['locked'],
-					'CRON_URL'		=> ($row['display_name'] != $cron_type) ? '<a href="' . $this->u_action . '&amp;cron_type=' . $row['display_name'] . '&amp;sk=' . $sk . '&amp;sd='. $sd . '" style="float:right;">Run</a>' : '<span style="float:right;">Running</span>',
 				));
 			}
 		}
