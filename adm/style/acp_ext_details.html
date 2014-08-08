@@ -83,13 +83,13 @@
 		<!-- IF META_REQUIRE_PHPBB -->
 		<div class="requirements_bubble">
 			<span class="requirements_name">{L_PHPBB_VERSION}</span>
-			<span class="requirements_value" id="require_phpbb">{META_REQUIRE_PHPBB}</span>
+			<span class="requirements_value<!-- IF META_REQUIRE_PHPBB_FAIL --> requirements_value_not_met<!-- ENDIF -->" id="require_phpbb">{META_REQUIRE_PHPBB}</span>
 		</div>
 		<!-- ENDIF -->
 		<!-- IF META_REQUIRE_PHP -->
 		<div class="requirements_bubble">
 			<span class="requirements_name">{L_PHP_VERSION}</span>
-			<span class="requirements_value" id="require_php">{META_REQUIRE_PHP}</span>
+			<span class="requirements_value<!-- IF META_REQUIRE_PHP_FAIL --> requirements_value_not_met<!-- ENDIF -->" id="require_php">{META_REQUIRE_PHP}</span>
 		</div>
 		<!-- ENDIF -->
 	</fieldset>

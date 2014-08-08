@@ -55,6 +55,21 @@ h1 {position: relative;}
     background: -ms-linear-gradient(top, #92d992 0%, #228822 100%);
     background: linear-gradient(to bottom, #92d992 0%, #228822 100%);
 }
+.requirements_value_not_met {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 15px;
+    color: #edfbf7;
+    font-weight: bold;
+    font-size: 1.1em;
+    background: #BC2A4D;
+    background: -moz-linear-gradient(top, #e08389 0%, #BC2A4D 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e08389), color-stop(100%, #BC2A4D));
+    background: -webkit-linear-gradient(top, #e08389 0%, #BC2A4D 100%);
+    background: -o-linear-gradient(top, #e08389 0%, #BC2A4D 100%);
+    background: -ms-linear-gradient(top, #e08389 0%, #BC2A4D 100%);
+    background: linear-gradient(to bottom, #e08389 0%, #BC2A4D 100%);
+}
 .description_bubble {
     display: inline-block;
     overflow: hidden;
