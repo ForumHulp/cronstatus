@@ -14,7 +14,7 @@ class cron_status_module
 	public $u_action;
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpbb_extension_manager, $phpbb_container;
+		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpbb_extension_manager, $phpbb_container, $phpbb_dispatcher;
 
 		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
 		$this->tpl_name = 'acp_cron_status';
@@ -119,18 +119,29 @@ class cron_status_module
 				"config_value"	=> $prune_shadow['prune_shadow_time']
 			);			
 			$db->sql_freeresult($result);
-
+			
 			$rows[] = array(
 				"config_name"	=> "plupload_gc",
 				"config_value"	=> 86400
-			);			
-
+			);
+			
 			if ($config['cron_lock'])
 			{
 				$cronlock = $this->maxValueInArray($rows, 'config_value');
 				$cronlock = str_replace(array('_last_gc', 'prune_notification', 'last_queue_run'), array('', 'read_notifications', 'queue_interval'), $cronlock['config_name']);
 			}
-
+			
+			/**
+			 * Event to modify cron configuration variables before displaying cron information
+			 *
+			 * @event forumhulp.cron_status.modify_cron_config
+			 * @var	array	rows		Configuration array
+			 * @var	string	cronlock	Name of task that released cron lock (in last task date format)
+			 * @since 3.1.0-rc3
+			 */
+			$vars = array('rows', 'cronlock');
+			extract($phpbb_dispatcher->trigger_event('forumhulp.cron_status.modify_cron_config', compact($vars)));
+			
 			foreach ($tasks as $task)
 			{
 				$task_name = $task->get_name();
@@ -158,6 +169,19 @@ class cron_status_module
 					$name = substr($task_name, strrpos($task_name, ".") + 1);
 					$task_date = (int) $this->array_find($name . '_last_gc', $rows);
 				}
+				
+				/**
+				 * Event to modify task variables before displaying cron information
+				 *
+				 * @event forumhulp.cron_status.modify_cron_task
+				 * @var	object	task		Task object
+				 * @var	object	task_name	Task name ($task->get_name())
+				 * @var	object	name		Task name for new task date
+				 * @var	object	task_date	Last task date
+				 * @since 3.1.0-rc3
+				 */
+				$vars = array('task', 'task_name', 'name', 'task_date');
+				extract($phpbb_dispatcher->trigger_event('forumhulp.cron_status.modify_cron_task', compact($vars)));
 				
 				$task_array[] = array(
 					'task_sort' => ($task->is_ready()) ? 'ready' : 'not_ready',
