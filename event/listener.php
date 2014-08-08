@@ -80,9 +80,10 @@ class listener implements EventSubscriberInterface
 	public function array_find($needle, $haystack) 
 	{
 		if(!is_array($haystack)) return false;
-		foreach ($haystack as $key => $item) 
+		foreach ($haystack as $item) 
 		{
-			if (strpos($item, $needle) !== false) return $haystack[$key];
+			$name = $item->get_name();
+			if (strpos($name, $needle) !== false) return $name;
 		}
 		return false;
 	}
