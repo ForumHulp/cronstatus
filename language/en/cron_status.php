@@ -42,4 +42,6 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_TIMEOUT'				=> 'Refresh timeout',
 	'CRON_STATUS_ERROR_EXPLAIN'			=> 'An error occurred during refreshing the page.',
 	'CRON_STATUS_DEVELOPERS'			=> 'Developers',
+	'CRON_TASK_RUN'						=> 'Run',
+	'CRON_TASK_RUNNING'					=> 'Running...',
 ));

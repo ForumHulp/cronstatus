@@ -39,7 +39,7 @@
 		</tr>
 		<!-- BEGIN ready -->
 		<tr>
-			<td><strong>{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_TASK_LOCKED}"></i><!-- ENDIF -->{ready.CRON_URL}</td>
+			<td><strong>{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <i class="fa fa-lock" title="{L_CRON_TASK_LOCKED}"></i><!-- ENDIF --><span class="cron_run" id="{ready.DISPLAY_NAME}">{L_CRON_TASK_RUN}</span><span class="cron_running" id="{ready.DISPLAY_NAME}_running">{L_CRON_TASK_RUNNING}</span></td>
 			<td>{ready.TASK_DATE}</td>
             <td><!-- IF ready.NEW_DATE -->{ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
 		</tr>
@@ -60,7 +60,7 @@
 	</tbody>
 </table>
 <!-- IF not VIEW_TABLE -->
-<!-- IF RUN_CRON_TASK -->{RUN_CRON_TASK}<!-- ELSE --><br /><!-- ENDIF -->
+<img id="run_cron_task" src="" width="1" height="1" alt="cron" /><br />
 <!-- INCLUDEJS js/jquery.simpledialog.js -->
 <!-- INCLUDEJS js/cron_status.js -->
 <!-- ENDIF -->
