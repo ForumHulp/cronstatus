@@ -14,7 +14,7 @@ class cron_status_module
 	public $u_action;
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpbb_extension_manager, $phpbb_container;
+		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpbb_extension_manager, $phpbb_container, $phpbb_dispatcher;
 
 		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
 		$this->tpl_name = 'acp_cron_status';
@@ -30,12 +30,11 @@ class cron_status_module
 		}
 				
 		$action = request_var('action', '');
-		//print_r($phpbb_container);
 		switch ($action)
 		{
 			case 'details':
 
-			$user->add_lang('acp/extensions');
+			$user->add_lang(array('install', 'acp/extensions', 'migrator'));
 			$ext_name = 'forumhulp/cron_status';
 			$md_manager = new \phpbb\extension\metadata_manager($ext_name, $config, $phpbb_extension_manager, $template, $user, $phpbb_root_path);
 			try
@@ -81,9 +80,11 @@ class cron_status_module
 		
 		default:
 		// Refreshing the page every 60 seconds...
-		meta_refresh(60, $this->u_action . '&amp;sk=' . $sk . '&amp;sd='. $sd);
+		//meta_refresh(60, $this->u_action . '&amp;sk=' . $sk . '&amp;sd='. $sd);
+		// Now page refreshes are done via Javascript!
+		$view_table = request_var('table', false);
 
-		$tasks = $task_aray = array();
+		$tasks = $task_array = array();
 		$tasks = $phpbb_container->get('cron.manager')->get_tasks();
 
 		if (sizeof($tasks))
@@ -118,18 +119,29 @@ class cron_status_module
 				"config_value"	=> $prune_shadow['prune_shadow_time']
 			);			
 			$db->sql_freeresult($result);
-
+			
 			$rows[] = array(
 				"config_name"	=> "plupload_gc",
 				"config_value"	=> 86400
-			);			
-
+			);
+			
 			if ($config['cron_lock'])
 			{
 				$cronlock = $this->maxValueInArray($rows, 'config_value');
 				$cronlock = str_replace(array('_last_gc', 'prune_notification', 'last_queue_run'), array('', 'read_notifications', 'queue_interval'), $cronlock['config_name']);
 			}
-
+			
+			/**
+			 * Event to modify cron configuration variables before displaying cron information
+			 *
+			 * @event forumhulp.cron_status.modify_cron_config
+			 * @var	array	rows		Configuration array
+			 * @var	string	cronlock	Name of task that released cron lock (in last task date format)
+			 * @since 3.1.0-rc3
+			 */
+			$vars = array('rows', 'cronlock');
+			extract($phpbb_dispatcher->trigger_event('forumhulp.cron_status.modify_cron_config', compact($vars)));
+			
 			foreach ($tasks as $task)
 			{
 				$task_name = $task->get_name();
@@ -154,27 +166,39 @@ class cron_status_module
 					$name = 'queue_interval';
 				} else
 				{
-					$name = substr($task_name, 15) ;
+					$name = substr($task_name, strrpos($task_name, ".") + 1);
 					$task_date = (int) $this->array_find($name . '_last_gc', $rows);
 				}
 				
-				$task_aray[] = array(
+				/**
+				 * Event to modify task variables before displaying cron information
+				 *
+				 * @event forumhulp.cron_status.modify_cron_task
+				 * @var	object	task		Task object
+				 * @var	object	task_name	Task name ($task->get_name())
+				 * @var	object	name		Task name for new task date
+				 * @var	object	task_date	Last task date
+				 * @since 3.1.0-rc3
+				 */
+				$vars = array('task', 'task_name', 'name', 'task_date');
+				extract($phpbb_dispatcher->trigger_event('forumhulp.cron_status.modify_cron_task', compact($vars)));
+				
+				$task_array[] = array(
 					'task_sort' => ($task->is_ready()) ? 'ready' : 'not_ready',
 					'display_name'	=> $task_name,
 					'task_date'		=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ? 
 									$user->format_date($task_date, $config['cron_status_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
-					'new_date'		=> (($task_date > 0 && $name != 'queue_interval') || ($name == 'queue_interval' && $task->is_ready())) ? 
+					'new_date'		=> ($task_date > 0 && $name != 'queue_interval') ? 
 									$user->format_date(($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows)), $config['cron_status_dateformat']) : '-',
-					'task_ok'		=> ($task_date > 0 && ($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) > time()) || 
-									($name == 'queue_interval' && !$task->is_ready())) ? false : true,
+					'task_ok'		=> ($task_date > 0 && ($task_date + $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) > time())) ? false : true,
 					'locked'		=> ($config['cron_lock'] && $cronlock == $name) ? true : false,
 				);
 			}
    			unset($tasks, $rows);
 			
-			$task_aray = $this->array_sort($task_aray, $sk, (($sd == 'a') ? SORT_ASC : SORT_DESC));
+			$task_array = $this->array_sort($task_array, $sk, (($sd == 'a') ? SORT_ASC : SORT_DESC));
 			
-			foreach($task_aray as $row)
+			foreach($task_array as $row)
 			{
 				$template->assign_block_vars($row['task_sort'], array(
 					'DISPLAY_NAME'	=> $row['display_name'],
@@ -186,7 +210,7 @@ class cron_status_module
 				));
 			}
 		}
-		$template->assign_vars(array('U_ACTION' => $this->u_action, 'U_NAME' => $sk, 'U_SORT' => $sd));
+		$template->assign_vars(array('U_ACTION' => $this->u_action, 'U_NAME' => $sk, 'U_SORT' => $sd, 'VIEW_TABLE' => $view_table));
 		}
 	}
 
