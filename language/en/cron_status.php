@@ -37,5 +37,9 @@ $lang = array_merge($lang, array(
 	'CRON_NEW_DATE'						=> 'New task date',
 	'CRON_TASK_NEVER_STARTED'			=> 'Never started',
 	'CRON_TASK_AUTO'					=> 'Auto',
-	'CRON_TASK_DATE_TIME'				=> 'Current date & time'
+	'CRON_TASK_DATE_TIME'				=> 'Current date & time',
+	'CRON_STATUS_ERROR'					=> 'Refresh error',
+	'CRON_STATUS_TIMEOUT'				=> 'Refresh timeout',
+	'CRON_STATUS_ERROR_EXPLAIN'			=> 'An error occurred during refreshing the page.',
+	'CRON_STATUS_DEVELOPERS'			=> 'Developers',
 ));

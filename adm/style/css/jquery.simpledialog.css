@@ -5,12 +5,12 @@
 .sd_container{
  font-family: arial,helvetica,sans-serif;
  margin:0;
- padding: 0px 10px 10px 10px;
+ padding: 10px;
  position: absolute;
  background-color: #fff;
  text-align:left;
  border: solid 5px #666;
- overflow-y: scroll;
+ overflow-y:auto;
  overflow-x:hidden;
 }
 .sd_container a {

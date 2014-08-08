@@ -37,5 +37,9 @@ $lang = array_merge($lang, array(
 	'CRON_NEW_DATE'						=> 'Дата следующего задания',
 	'CRON_TASK_NEVER_STARTED'			=> 'Никогда не выполнялось',
 	'CRON_TASK_AUTO'					=> 'Авто',
-	'CRON_TASK_DATE_TIME'				=> 'Текущие дата и время'
+	'CRON_TASK_DATE_TIME'				=> 'Текущие дата и время',
+	'CRON_STATUS_ERROR'					=> 'Ошибка обновления',
+	'CRON_STATUS_TIMEOUT'				=> 'Тайм-аут обновления',
+	'CRON_STATUS_ERROR_EXPLAIN'			=> 'Во время обновления страницы произошла ошибка.',
+	'CRON_STATUS_DEVELOPERS'			=> 'Разработчики',
 ));

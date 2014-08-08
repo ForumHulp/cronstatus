@@ -1,3 +1,4 @@
+<!-- IF not VIEW_TABLE -->
 <!-- IF S_ALLOW_CDN -->
 <!-- INCLUDECSS //maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css -->
 <!-- ELSE -->
@@ -10,13 +11,13 @@
 
 <a name="maincontent"></a>
 
-<h1>{L_ACP_CRON_STATUS_TITLE}<i id="circle" class="fa fa-circle-o-notch fa-spin"></i><span id="ProgressStatus" title="{L_CRON_STATUS_REFRESH}">60</span></h1>
+<h1>{L_ACP_CRON_STATUS_TITLE} <a href="{U_ACTION}&amp;action=details" class="simpledialog"><i class="fa fa-info-circle"></i></a><i id="circle" class="fa fa-circle-o-notch fa-spin"></i><span id="ProgressStatus" title="{L_CRON_STATUS_REFRESH}">60</span><span id="LoadError" title="{L_CRON_STATUS_ERROR_EXPLAIN}"><i class="fa fa-warning"></i><span id="LoadErrorTimeout">{L_CRON_STATUS_TIMEOUT}</span><span id="LoadPageError">{L_CRON_STATUS_ERROR}</span></span></h1>
 
 <p>{L_ACP_CRON_STATUS_EXPLAIN}</p>
 
+<!-- ENDIF -->
 <!-- IF .ready or .not_ready -->
-<a href="{U_ACTION}&amp;action=details" style="float:right" class="simpledialog">Info</a>
-<table class="table1">
+<table class="table1" id="cron_table">
 	<col class="row1">
 	<col class="row1">
    	<col class="row1">
@@ -58,12 +59,16 @@
 		<!-- ENDIF -->
 	</tbody>
 </table>
+<!-- IF not VIEW_TABLE -->
 <!-- IF RUN_CRON_TASK -->{RUN_CRON_TASK}<!-- ELSE --><br /><!-- ENDIF -->
 <!-- INCLUDEJS js/jquery.simpledialog.js -->
 <!-- INCLUDEJS js/cron_status.js -->
+<!-- ENDIF -->
 <!-- ELSE -->
 <div class="errorbox">
 	<h3>{L_CRON_STATUS_NO_TASKS}</h3>
 </div>
 <!-- ENDIF -->
+<!-- IF not VIEW_TABLE -->
 <!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->
