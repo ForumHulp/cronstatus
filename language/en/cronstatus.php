@@ -1,20 +1,20 @@
 <?php
 /**
 *
-* @package Cron_status
-* @copyright (c) 2014 ForumHulp.com
+* @package cronstatus
+* @copyright (c) 2014 John Peskens (http://ForumHulp.com) and Igor Lavrov (https://github.com/LavIgor)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
 
 if (!defined('IN_PHPBB'))
 {
-        exit;
+	exit;
 }
 
 if (empty($lang) || !is_array($lang))
 {
-        $lang = array();
+	$lang = array();
 }
 
 $lang = array_merge($lang, array(
@@ -37,5 +37,11 @@ $lang = array_merge($lang, array(
 	'CRON_NEW_DATE'						=> 'New task date',
 	'CRON_TASK_NEVER_STARTED'			=> 'Never started',
 	'CRON_TASK_AUTO'					=> 'Auto',
-	'CRON_TASK_DATE_TIME'				=> 'Current date & time'
+	'CRON_TASK_DATE_TIME'				=> 'Current date & time',
+	'CRON_STATUS_ERROR'					=> 'Refresh error',
+	'CRON_STATUS_TIMEOUT'				=> 'Refresh timeout',
+	'CRON_STATUS_ERROR_EXPLAIN'			=> 'An error occurred during refreshing the page.',
+	'CRON_STATUS_DEVELOPERS'			=> 'Developers',
+	'CRON_TASK_RUN'						=> 'Run',
+	'CRON_TASK_RUNNING'					=> 'Running...',
 ));

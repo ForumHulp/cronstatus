@@ -1,20 +1,20 @@
 <?php
 /**
 *
-* @package Cron_status
-* @copyright (c) 2014 ForumHulp.com
+* @package cronstatus
+* @copyright (c) 2014 John Peskens (http://ForumHulp.com) and Igor Lavrov (https://github.com/LavIgor)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
 
 if (!defined('IN_PHPBB'))
 {
-        exit;
+	exit;
 }
 
 if (empty($lang) || !is_array($lang))
 {
-        $lang = array();
+	$lang = array();
 }
 
 $lang = array_merge($lang, array(
@@ -37,5 +37,11 @@ $lang = array_merge($lang, array(
 	'CRON_NEW_DATE'						=> 'Nieuwe taak datum',
 	'CRON_TASK_NEVER_STARTED'			=> 'Nooit gestart',
 	'CRON_TASK_AUTO'					=> 'Auto',
-	'CRON_TASK_DATE_TIME'				=> 'Huidige datum & tijd'
+	'CRON_TASK_DATE_TIME'				=> 'Huidige datum & tijd',
+	'CRON_STATUS_ERROR'					=> 'Vernieuwen fout',
+	'CRON_STATUS_TIMEOUT'				=> 'Vernieuwen timeout',
+	'CRON_STATUS_ERROR_EXPLAIN'			=> 'Er is een fout opgetreden tijdens het vernieuwen van de pagina.',
+	'CRON_STATUS_DEVELOPERS'			=> 'Ontwikkelaars',
+	'CRON_TASK_RUN'						=> 'Run',
+	'CRON_TASK_RUNNING'					=> 'Running...',
 ));
