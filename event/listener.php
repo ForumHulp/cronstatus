@@ -78,7 +78,6 @@ class listener implements EventSubscriberInterface
 	// array_search with partial matches
 	public function array_find($needle, $haystack)
 	{
-<<<<<<< HEAD
 		if(!is_array($haystack))
 		{
 			return false;
@@ -90,13 +89,6 @@ class listener implements EventSubscriberInterface
 			{
 				return $name;
 			}
-=======
-		if(!is_array($haystack)) return false;
-		foreach ($haystack as $item) 
-		{
-			$name = $item->get_name();
-			if (strpos($name, $needle) !== false) return $name;
->>>>>>> origin/master
 		}
 		return false;
 	}
