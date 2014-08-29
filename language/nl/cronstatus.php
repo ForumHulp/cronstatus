@@ -44,4 +44,8 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Ontwikkelaars',
 	'CRON_TASK_RUN'						=> 'Run',
 	'CRON_TASK_RUNNING'					=> 'Running...',
+<<<<<<< HEAD:language/nl/cronstatus.php
 ));
+=======
+));
+>>>>>>> origin/master:language/nl/cron_status.php
