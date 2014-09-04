@@ -131,13 +131,13 @@ class cronstatus_module
 				/**
 				* Event to modify cron configuration variables before displaying cron information
 				*
-				* @event forumhulp.cronstatus.modify_cron_config
+				* @event boardtools.cronstatus.modify_cron_config
 				* @var	array	rows		Configuration array
 				* @var	string	cronlock	Name of task that released cron lock (in last task date format)
 				* @since 3.1.0-RC3
 				*/
 				$vars = array('rows', 'cronlock');
-				extract($phpbb_dispatcher->trigger_event('forumhulp.cronstatus.modify_cron_config', compact($vars)));
+				extract($phpbb_dispatcher->trigger_event('boardtools.cronstatus.modify_cron_config', compact($vars)));
 
 				foreach ($tasks as $task)
 				{
@@ -173,7 +173,7 @@ class cronstatus_module
 					/**
 					* Event to modify task variables before displaying cron information
 					*
-					* @event forumhulp.cronstatus.modify_cron_task
+					* @event boardtools.cronstatus.modify_cron_task
 					* @var	object	task		Task object
 					* @var	object	task_name	Task name ($task->get_name())
 					* @var	object	name		Task name for new task date
@@ -181,7 +181,7 @@ class cronstatus_module
 					* @since 3.1.0-RC3
 					*/
 					$vars = array('task', 'task_name', 'name', 'task_date');
-					extract($phpbb_dispatcher->trigger_event('forumhulp.cronstatus.modify_cron_task', compact($vars)));
+					extract($phpbb_dispatcher->trigger_event('boardtools.cronstatus.modify_cron_task', compact($vars)));
 
 					$task_array[] = array(
 						'task_sort'			=> ($task->is_ready()) ? 'ready' : 'not_ready',

@@ -2,19 +2,19 @@ Cron Status
 ===========
 Cron Status displays an overview of Board's Cron Jobs in Maintenance module of ACP. This extension also shows a notification on the main page of ACP when a cron job is locked (optionally). It shows the time when the cron task started and which cron task was the problem.
 
-[![Build Status](https://travis-ci.org/ForumHulp/cronstatus.svg?branch=master)](https://travis-ci.org/ForumHulp/cronstatus)
+[![Build Status](https://travis-ci.org/forumhulp/cronstatus.svg?branch=master)](https://travis-ci.org/forumhulp/cronstatus)
 
 ## Requirements
 * phpBB 3.1.0-RC3 or higher
 * PHP 5.3.3 or higher
 
-You can also download an [old release for early development versions of phpBB 3.1.0](https://github.com/ForumHulp/cronstatus/releases/tag/v3.1.0-dev).
+You can also download an [old release for early development versions of phpBB 3.1.0](https://github.com/forumhulp/cronstatus/releases/tag/v3.1.0-dev).
 
 ## Quick Installation
 You can quickly install this extension (without using FTP) on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by doing the following:
 
-1. Make sure that the extension "[Upload Extensions](https://github.com/ForumHulp/upload)" is installed on your board.
-2. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/ForumHulp/cronstatus/archive/master.zip).
+1. Make sure that the extension "[Upload Extensions](https://github.com/forumhulp/upload)" is installed on your board.
+2. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/forumhulp/cronstatus/archive/master.zip).
 3. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions -> Upload extensions`.
 4. Choose the downloaded ZIP-archive in the `Browse` field and click `Upload`.
 5. Click `Enable`.
@@ -22,7 +22,7 @@ You can quickly install this extension (without using FTP) on the latest copy of
 ## Standard Installation
 You can install this extension on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by doing the following:
 
-1. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/ForumHulp/cronstatus/archive/master.zip).
+1. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/forumhulp/cronstatus/archive/master.zip).
 2. Check out the existing of the folder `/ext/forumhulp/cronstatus/` in the root of your board folder. Create folders if necessary.
 3. Copy the contents of the downloaded `cronstatus-master` folder to `/ext/forumhulp/cronstatus/`.
 4. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions -> Cron Status`.
@@ -43,7 +43,7 @@ You can change the date format for Cron Status or remove Cron Status Notice that
 Navigate in the ACP to `General -> Board configuration -> Board settings -> Cron Status`.
 
 ## Update
-1. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/ForumHulp/cronstatus/archive/master.zip).
+1. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/forumhulp/cronstatus/archive/master.zip).
 2. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions -> Cron Status` and click `Disable`.
 3. Copy the contents of the downloaded `cronstatus-master` folder to `/ext/forumhulp/cronstatus/`.
 4. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions -> Cron Status` and click `Enable`.
