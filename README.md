@@ -2,7 +2,7 @@ Cron Status
 ===========
 Cron Status displays an overview of Board's Cron Jobs in Maintenance module of ACP. This extension also shows a notification on the main page of ACP when a cron job is locked (optionally). It shows the time when the cron task started and which cron task was the problem.
 
-[![Build Status](https://travis-ci.org/forumhulp/cronstatus.svg?branch=master)](https://travis-ci.org/forumhulp/cronstatus)
+[![Build Status](https://travis-ci.org/ForumHulp/cronstatus.svg?branch=master)](https://travis-ci.org/ForumHulp/cronstatus)
 
 ## Requirements
 * phpBB 3.1.0-RC3 or higher
