@@ -7,7 +7,7 @@
 *
 */
 
-namespace forumhulp\cronstatus\migration;
+namespace forumhulp\cronstatus\migrations;
 
 class cronstatus extends \phpbb\db\migration\migration
 {
