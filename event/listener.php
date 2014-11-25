@@ -64,7 +64,7 @@ class listener implements EventSubscriberInterface
 		$sql = 'SELECT * FROM ' . CONFIG_TABLE . ' where config_name LIKE "%last_gc" ORDER BY config_value DESC LIMIT 1';
 		$result = $this->db->sql_query($sql);
 		$row = $this->db->sql_fetchrow($result);
-		$task = str_replace('_last_gc', '',$row['config_name']);
+		$task = str_replace('_last_gc', '', $row['config_name']);
 		$task = str_replace('read_notification', 'prune_notification', $task);
 
 		$task = $this->array_find($task, $tasks);
