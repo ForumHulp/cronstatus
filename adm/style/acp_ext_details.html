@@ -1,6 +1,16 @@
+<!-- IF not IS_AJAX -->
+<!-- IF S_ALLOW_CDN -->
+<!-- INCLUDECSS //maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css -->
+<!-- ELSE -->
+<!-- INCLUDECSS ./../../ext/forumhulp/cronstatus/vendor/font-awesome/css/font-awesome.min.css -->
+<!-- ENDIF -->
+<!-- INCLUDECSS css/cronstatus.css -->
+<!-- INCLUDECSS css/jquery.simpledialog.css -->
+<!-- INCLUDE overall_header.html -->
 <a id="maincontent"></a>
-
+<!-- ENDIF -->
 	<h1 class="ExtensionName"><!-- IF META_DISPLAY_NAME -->{META_DISPLAY_NAME} - <!-- ENDIF -->{L_EXT_DETAILS}</h1>
+	<!-- IF not IS_AJAX --><br /><a href="{U_BACK}">« {L_ACP_CRON_STATUS_TITLE}</a><!-- ENDIF -->
 
 	<!-- IF S_VERSIONCHECK -->
 	<!-- ELSE IF S_VERSIONCHECK_STATUS == 0 -->
@@ -15,12 +25,28 @@
 	</div>
 	<!-- ENDIF -->
 
-	<!-- IF META_DESCRIPTION -->
-	<fieldset>
-		<legend>{L_DESCRIPTION}</legend>
-		<span id="meta_description">{META_DESCRIPTION}</span>
+	<fieldset class="description_fieldset">
+		<span id="meta_description" class="description_title">{L_DESCRIPTION}</span>
+		<fieldset style="width: 48%;">
+			<div>
+				<h1 style="color: #1e5c18; background-color: #d7fdd3;"><i class="fa fa-signal"></i> {L_CRONSTATUS_DESCRIPTION_PAGE}</h1>
+				<p class="description_list">
+					<span><i class="fa fa-fw fa-tasks"></i> {L_CRONSTATUS_DESCRIPTION_PAGE_OVERVIEW}</span>
+					<span><i class="fa fa-fw fa-check"></i> {L_CRONSTATUS_DESCRIPTION_PAGE_STATUS}</span>
+					<span><i class="fa fa-fw fa-toggle-on"></i> {L_CRONSTATUS_DESCRIPTION_PAGE_ABILITY}</span>
+				</p>
+			</div>
+		</fieldset>
+		<fieldset style="float: right; width: 48%;">
+			<div>
+				<h1 style="color: #103f53; background-color: #e0f5fe;"><i class="fa fa-flag"></i> {L_CRONSTATUS_DESCRIPTION_NOTICE}</h1>
+				<p class="description_list">
+					<span><i class="fa fa-fw fa-lock"></i> {L_CRONSTATUS_DESCRIPTION_NOTICE_OVERVIEW}</span>
+					<span><i class="fa fa-fw fa-power-off"></i> {L_CRONSTATUS_DESCRIPTION_NOTICE_SETTINGS}</span>
+				</p>
+			</div>
+		</fieldset>
 	</fieldset>
-	<!-- ENDIF -->
 	<div class="description_bubble big_bubble">
 		<span class="description_name">{L_CLEAN_NAME}</span>
 		<strong class="description_value" id="meta_name">{META_NAME}</strong>
@@ -44,7 +70,7 @@
 	<!-- IF META_HOMEPAGE -->
 	<div class="description_bubble big_bubble">
 		<span class="description_name">{L_HOMEPAGE}</span>
-		<strong class="description_value" id="meta_homepage"><a href="{META_HOMEPAGE}">{META_HOMEPAGE}</a></strong>
+		<strong class="description_value" id="meta_homepage"><a href="{META_HOMEPAGE}"><i class="fa fa-globe"></i></a></strong>
 	</div>
 	<!-- ENDIF -->
 	<!-- IF META_TIME -->
@@ -107,3 +133,6 @@
 		</div>
 		<!-- END meta_authors -->
 	</fieldset>
+<!-- IF not IS_AJAX -->
+<!-- INCLUDE overall_footer.html -->
+<!-- ENDIF -->

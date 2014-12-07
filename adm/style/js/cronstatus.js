@@ -1,6 +1,8 @@
 ; (function ($, window, document) {
 	// do stuff here and use $, window and document safely
 	// https://www.phpbb.com/community/viewtopic.php?p=13589106#p13589106
+	$(".cron_run_link").css("display", "none");
+	$("#ProgressStatus, #circle, .cron_run").css("display", "block");
 	var time = 59;
 	function progress() {
 		var element = $('#ProgressStatus');
@@ -35,7 +37,9 @@
 					interval = setInterval(progress, 1000);
 					$(this).html(s);
 					$('#date').text(getISODateTime());
+					$(".cron_run_link").css("display", "none");
 					$(".cron_run").bind("click", run_cron);
+					$(".cron_run").css("display", "block");
 					parse_document($("#cron_table_container"));
 				}
 			});
@@ -71,7 +75,7 @@
 	function run_cron(event) {
 		cron_run = this;
 		var cron_task = this.id;
-		$("#run_cron_task").attr("src", "../cron.php?cron_type=" + cron_task);
+		$("#run_cron_task").attr("src", cron_url + cron_task);
 		$(".cron_run").css("display", "none");
 		$(this).next().css("display", "block");
 		time = 10;
