@@ -8,6 +8,8 @@ Cron Status displays an overview of Board's Cron Jobs in Maintenance module of A
 * phpBB 3.1.0 or higher
 * PHP 5.3.3 or higher
 
+You can also download an [old release for early development versions of phpBB 3.1.0](https://github.com/ForumHulp/cronstatus/releases/tag/v3.1.0-dev).
+
 ## Quick Installation
 You can quickly install this extension on the latest version of [phpBB 3.1](https://www.phpbb.com/downloads/) or on the latest development version of [phpBB 3.1-dev](https://github.com/phpbb/phpbb3) by doing the following:
 
