@@ -187,7 +187,7 @@ class listener implements EventSubscriberInterface
 		{
 		//	$cronlock = $this->maxValueInArray($rows, 'config_value');
 		//	$last_task_date = $cronlock['config_value'];
-			
+
 			$cronlock = explode(' ', $this->config['cron_lock']);
 			$cronlock = $cronlock[1];
 			$cronlock = str_replace(array('_last_gc', 'prune_notifications', 'last_queue_run'), array('', 'read_notification', 'queue_interval'), $cronlock);
