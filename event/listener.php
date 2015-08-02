@@ -88,16 +88,33 @@ class listener implements EventSubscriberInterface
 		{
 			return false;
 		}
-		foreach ($haystack as $item)
+		foreach ($haystack as $key => $item)
 		{
-			$name = $item->get_name();
-			if (strpos($name, $needle) !== false)
+			if (strpos($item['config_name'], $needle) !== false)
 			{
-				return $name;
+				return $haystack[$key]['config_value'];
 			}
 		}
 		return false;
 	}
+
+	// array_search with partial matches
+//	public function array_find($needle, $haystack)
+//	{
+//		if(!is_array($haystack))
+//		{
+//			return false;
+//		}
+//		foreach ($haystack as $item)
+//		{
+//			$name = $item->get_name();
+//			if (strpos($name, $needle) !== false)
+//			{
+//				return $name;
+//			}
+//		}
+//		return false;
+//	}
 
 	public function add_config($event)
 	{
@@ -121,10 +138,18 @@ class listener implements EventSubscriberInterface
 
 	public function get_cron_tasks(&$cronlock, $get_last_task = false)
 	{
-		$sql = "SELECT config_name, config_value FROM " . CONFIG_TABLE . " WHERE config_name LIKE " . (($get_last_task) ? "'%_last_gc' OR config_name = 'last_queue_run' ORDER BY config_value DESC" : "'%_gc' OR config_name = 'last_queue_run' OR config_name = 'queue_interval'");
+		$sql = "SELECT config_name, config_value FROM " . CONFIG_TABLE . " WHERE config_name LIKE " . (($get_last_task) ? "'%_last_gc' OR config_name = 'last_queue_run' ORDER BY config_value DESC" : "'%_gc' OR config_name = 'last_queue_run' OR config_name = 'queue_interval' OR config_name = 'autogroups_last_run'");
 		$result = ($get_last_task) ? $this->db->sql_query_limit($sql, 1) : $this->db->sql_query($sql);
 		$rows = $this->db->sql_fetchrowset($result);
 		$this->db->sql_freeresult($result);
+		$rows[] = array(
+			"config_name"	=> "autogroups_check_last_gc", // This is the time of the last Cron Job.
+			"config_value"	=> $this->array_find('autogroups_last_run', $rows)
+		);
+		$rows[] = array(
+			"config_name"	=> "autogroups_check_gc", // This is the time of the last Cron Job.
+			"config_value"	=> 86400
+		);
 
 		$sql = 'SELECT prune_next, prune_freq * 86400 AS prune_time FROM ' . FORUMS_TABLE . ' WHERE enable_prune = 1 ORDER BY prune_next';
 		$result = $this->db->sql_query_limit($sql, 1);
@@ -157,12 +182,16 @@ class listener implements EventSubscriberInterface
 			"config_value"	=> 86400
 		);
 
-		$last_task_date = 0;
+	//	$last_task_date = 0;
 		if ($this->config['cron_lock'])
 		{
-			$cronlock = $this->maxValueInArray($rows, 'config_value');
-			$last_task_date = $cronlock['config_value'];
-			$cronlock = str_replace(array('_last_gc', 'prune_notifications', 'last_queue_run'), array('', 'read_notification', 'queue_interval'), $cronlock['config_name']);
+		//	$cronlock = $this->maxValueInArray($rows, 'config_value');
+		//	$last_task_date = $cronlock['config_value'];
+			
+			$cronlock = explode(' ', $this->config['cron_lock']);
+			$cronlock = $cronlock[1];
+			$cronlock = str_replace(array('_last_gc', 'prune_notifications', 'last_queue_run'), array('', 'read_notification', 'queue_interval'), $cronlock);
+		//	$cronlock = str_replace(array('_last_gc', 'prune_notifications', 'last_queue_run'), array('', 'read_notification', 'queue_interval'), $cronlock['config_name']);
 		}
 
 		/**

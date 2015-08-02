@@ -122,18 +122,15 @@ class cronstatus_module
 						$name = substr($task_name, $find + 5);
 						$name = ($name == 'sessions') ? 'session' : $name;
 						$task_date = (int) $this->array_find($name . '_last_gc', $rows);
-					}
-					else if (strpos($task_name, 'prune_notifications'))
+					} else if (strpos($task_name, 'prune_notifications'))
 					{
 						$task_date = (int) $this->array_find('read_notification_last_gc', $rows);
 						$name = 'read_notification';
-					}
-					else if (strpos($task_name, 'queue'))
+					} else if (strpos($task_name, 'queue'))
 					{
 						$task_date = (int) $this->array_find('last_queue_run', $rows);
 						$name = 'queue_interval';
-					}
-					else
+					} else
 					{
 						$name = (strrpos($task_name, ".") !== false) ? substr($task_name, strrpos($task_name, ".") + 1) : $task_name;
 						$task_last_gc = $this->array_find($name . '_last_gc', $rows);
