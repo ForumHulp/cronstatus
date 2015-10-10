@@ -90,7 +90,7 @@ class cronstatus_module
 
 			case 'reset':
 				$config->set('cron_lock', 0);
-			
+
 			default:
 			$view_table = $request->variable('table', false);
 			$cron_type = $request->variable('cron_type', '');
