@@ -63,7 +63,9 @@ class cronstatus extends \phpbb\db\migration\migration
 			{
 				$fp = @fopen($this->phpbb_root_path . $file , 'r' );
 				if ($fp === false)
+				{
 					continue;
+				}
 				$content = fread( $fp, filesize($this->phpbb_root_path . $file) );
 				(!$this->revert) ? copy($this->phpbb_root_path . $file, $this->phpbb_root_path . $file . '.bak') : null;
 				fclose($fp);
@@ -80,7 +82,9 @@ class cronstatus extends \phpbb\db\migration\migration
 					$new_file = $files[$key];
 					$fp = @fopen($this->phpbb_root_path . $new_file , 'w' );
 					if ($fp === false)
+					{
 						continue;
+					}
 					$fwrite = fwrite($fp, $content);
 					fclose($fp);
 					if ($fwrite !== false)
