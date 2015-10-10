@@ -20,4 +20,8 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'ACP_CRON_STATUS_TITLE'				=> 'Cron Status',
 	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Controleer Cron Status',
+	'LOG_CORE_INSTALLED'				=> 'Files succesfully changed',
+	'LOG_CORE_DEINSTALLED'				=> 'Files succesfully changed back',
+	'LOG_CORE_NOT_REPLACED'				=> 'Could not replaced file(s)<br />» %s',
+	'LOG_CORE_NOT_UPDATED'				=> 'Could not update file(s)<br />» %s'
 ));

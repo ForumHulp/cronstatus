@@ -88,6 +88,9 @@ class cronstatus_module
 			$this->tpl_name = 'acp_ext_details';
 			break;
 
+			case 'reset':
+				$config->set('cron_lock', 0);
+			
 			default:
 			$view_table = $request->variable('table', false);
 			$cron_type = $request->variable('cron_type', '');
@@ -102,7 +105,7 @@ class cronstatus_module
 			$tasks = $task_array = array();
 			$tasks = $phpbb_container->get('cron.manager')->get_tasks();
 
-			$cronlock = '';
+		//	$cronlock = '';
 			$rows = $phpbb_container->get('forumhulp.cronstatus.listener')->get_cron_tasks($cronlock);
 
 			if (sizeof($tasks) && is_array($rows))
@@ -134,7 +137,7 @@ class cronstatus_module
 					{
 						$name = (strrpos($task_name, ".") !== false) ? substr($task_name, strrpos($task_name, ".") + 1) : $task_name;
 						$task_last_gc = $this->array_find($name . '_last_gc', $rows);
-						$task_date = ($task_last_gc !== false) ? (int) $task_last_gc : -1;
+						$task_date = ($task_last_gc !== false) ? (int) $task_last_gc : 0;
 					}
 
 					$new_task_interval = ($task_date > 0) ? $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) : 0;
@@ -163,7 +166,7 @@ class cronstatus_module
 						'new_date'			=> $new_task_date,
 						'new_date_print'	=> ($new_task_date > 0) ? $user->format_date($new_task_date, $config['cronstatus_dateformat']) : '-',
 						'task_ok'			=> ($task_date > 0 && ($new_task_date > time())) ? false : true,
-						'locked'			=> ($config['cron_lock'] && $cronlock == $name) ? true : false,
+						'locked'			=> ($config['cron_lock'] && $cronlock == $task_name) ? true : false,
 					);
 				}
 				unset($tasks, $rows);
@@ -189,7 +192,8 @@ class cronstatus_module
 				'U_ACTION'		=> $this->u_action,
 				'U_NAME'		=> $sk,
 				'U_SORT'		=> $sd,
-				'CRON_URL'		=> $cron_url,
+				'CRON_URL'		=> (!$config['cron_lock']) ? $cron_url : '',
+				'U_UNLOCK'		=> $this->u_action,
 				'VIEW_TABLE'	=> $view_table
 			));
 		}
