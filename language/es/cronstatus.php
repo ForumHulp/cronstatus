@@ -22,7 +22,6 @@ $lang = array_merge($lang, array(
 	'CRON_LOCKED'						=> 'Cron Bloqueado',
 	'CRON_TIME_LOCKED'					=> 'Fecha del bloqueo del Cron',
 	'ACP_CRON_STATUS_TITLE'				=> 'Estado del Cron',
-	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Coprobar el estado del Cron',
 	'ACP_CRON_STATUS_EXPLAIN'			=> 'Estado del Cron es una página de su foro phpBB donde se puede comprobar si las tareas Cron están preparados para hacer. El “Auto” de la tarea con la última fecha, significa que la tarea tiene una opción de control de tiempo específico que no pudo ser reconocido por la extensión Estado del Cron. Una tarea marcada en rojo, significa una tarea que nunca se ha iniciado o que tiene un problema. Un bloqueo rojo, significa que esta tarea está bloqueada por el gerente Cron y bloquea otras tareas.',
 	'CRON_STATUS_REFRESH'				=> 'Segundos para refrescar',
 	'CRON_TASK_LOCKED'					=> 'Tarea Cron bloqueada',
@@ -45,15 +44,4 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Desarrolladores',
 	'CRON_TASK_RUN'						=> 'Ejecutar',
 	'CRON_TASK_RUNNING'					=> 'Ejecutando...',
-));
-
-// Description of Cron Status extension
-$lang = array_merge($lang, array(
-	'CRONSTATUS_DESCRIPTION_PAGE'				=> 'Página del estado del Cron',
-	'CRONSTATUS_DESCRIPTION_PAGE_OVERVIEW'		=> 'Visión general de trabajos Cron (con clasificación)',
-	'CRONSTATUS_DESCRIPTION_PAGE_STATUS'		=> 'Muestra el estado de cada tarea Cron',
-	'CRONSTATUS_DESCRIPTION_PAGE_ABILITY'		=> 'Puede ejecutar cualquier tarea preparada manualmente',
-	'CRONSTATUS_DESCRIPTION_NOTICE'				=> 'Noticia de Estado Cron (opcional)',
-	'CRONSTATUS_DESCRIPTION_NOTICE_OVERVIEW'	=> 'Se muestra en la página principal del PCA cuando el Cron está bloqueado',
-	'CRONSTATUS_DESCRIPTION_NOTICE_SETTINGS'	=> 'Puede apagar esta opción en los Ajustes del Foro',
 ));

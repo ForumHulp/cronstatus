@@ -18,10 +18,29 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACP_CRON_STATUS_TITLE'				=> 'Cron Status',
-	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Check Cron Status',
-	'LOG_CORE_INSTALLED'				=> 'Files succesfully changed',
-	'LOG_CORE_DEINSTALLED'				=> 'Files succesfully changed back',
-	'LOG_CORE_NOT_REPLACED'				=> 'Could not replaced file(s)<br />» %s',
-	'LOG_CORE_NOT_UPDATED'				=> 'Could not update file(s)<br />» %s'
+	'ACP_CRON_STATUS_TITLE'	=> 'Cron Status',
+	'LOG_CORE_INSTALLED'	=> 'Files succesfully changed',
+	'LOG_CORE_DEINSTALLED'	=> 'Files succesfully changed back',
+	'LOG_CORE_NOT_REPLACED'	=> 'Could not replaced file(s)<br />» %s',
+	'LOG_CORE_NOT_UPDATED'	=> 'Could not update file(s)<br />» %s',
+	'FH_HELPER_NOTICE'		=> 'Forumhulp helper application does not exist!<br />Download <a href="">forumhulp/helper</a> and copy the helper folder to your forumhulp extension folder.',
+	'CRONSTAT_NOTICE'		=> '<div class="phpinfo"><p class="entry">This extension resides in %1$s » %2$s » %3$s.</p></div>',
+));
+
+// Description of Donations extension
+$lang = array_merge($lang, array(
+	'DESCRIPTION_PAGE'		=> 'Description',
+	'DESCRIPTION_NOTICE'	=> 'Extension note',
+	'ext_details' => array(
+		'details' => array(
+			'DESCRIPTION_1'	=> 'Overview of Cron Jobs (with sorting)',
+			'DESCRIPTION_2'	=> 'Displays the status of each Cron Task',
+			'DESCRIPTION_3'	=> 'You can run any ready task manually',
+			'DESCRIPTION_4'	=> 'Reset cronlock with a simple click',
+		),
+		'note' => array(
+			'NOTICE_1'		=> 'Cron Status Notice on main ACP page',
+			'NOTICE_2'		=> 'Configurable in Board settings'
+		)
+	)
 ));

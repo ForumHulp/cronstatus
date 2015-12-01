@@ -98,24 +98,6 @@ class listener implements EventSubscriberInterface
 		return false;
 	}
 
-	// array_search with partial matches
-//	public function array_find($needle, $haystack)
-//	{
-//		if(!is_array($haystack))
-//		{
-//			return false;
-//		}
-//		foreach ($haystack as $item)
-//		{
-//			$name = $item->get_name();
-//			if (strpos($name, $needle) !== false)
-//			{
-//				return $name;
-//			}
-//		}
-//		return false;
-//	}
-
 	public function add_config($event)
 	{
 		if($event['mode'] == 'settings')
@@ -127,9 +109,9 @@ class listener implements EventSubscriberInterface
 			$submit_legend_number = substr($submit_key, 6);
 			$display_vars['vars']['legend'.$submit_legend_number] = 'ACP_CRON_STATUS_TITLE';
 			$new_vars = array(
-				'cronstatus_dateformat'	=> array('lang' => 'CRON_STATUS_DATE_FORMAT',	'validate' => 'string',	'type' => 'custom', 'method' => 'dateformat_select', 'explain' => true),
-				'cronstatus_main_notice'	=> array('lang' => 'CRON_STATUS_MAIN_NOTICE',	'validate' => 'bool',	'type' => 'radio:yes_no', 'explain' => true),
-				'legend'.($submit_legend_number + 1)	=> 'ACP_SUBMIT_CHANGES',
+				'cronstatus_dateformat'	=> array('lang' => 'CRON_STATUS_DATE_FORMAT', 'validate' => 'string', 'type' => 'custom', 'method' => 'dateformat_select', 'explain' => true),
+				'cronstatus_main_notice'	=> array('lang' => 'CRON_STATUS_MAIN_NOTICE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+				'legend'.($submit_legend_number + 1) => 'ACP_SUBMIT_CHANGES',
 			);
 			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $new_vars, array('after' => $submit_key));
 			$event['display_vars'] = $display_vars;
@@ -182,16 +164,11 @@ class listener implements EventSubscriberInterface
 			"config_value"	=> 86400
 		);
 
-	//	$last_task_date = 0;
 		if ($this->config['cron_lock'])
 		{
-		//	$cronlock = $this->maxValueInArray($rows, 'config_value');
-		//	$last_task_date = $cronlock['config_value'];
-
 			$cronlock = explode(' ', $this->config['cron_lock']);
 			$cronlock = $cronlock[1];
 			$cronlock = str_replace(array('_last_gc', 'prune_notifications', 'last_queue_run'), array('', 'prune_notifications', 'queue_interval'), $cronlock);
-		//	$cronlock = str_replace(array('_last_gc', 'prune_notifications', 'last_queue_run'), array('', 'read_notification', 'queue_interval'), $cronlock['config_name']);
 		}
 
 		/**

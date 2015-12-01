@@ -2,11 +2,11 @@
 <!-- IF S_ALLOW_CDN -->
 <!-- INCLUDECSS //maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css -->
 <!-- ELSE -->
-<!-- INCLUDECSS {ROOT_PATH}ext/forumhulp/cronstatus/vendor/font-awesome/css/font-awesome.min.css -->
+<!-- INCLUDECSS {ROOT_PATH}ext/forumhulp/helper/css/font-awesome.min.css -->
 <!-- ENDIF -->
 <!-- INCLUDECSS css/cronstatus.css -->
-<!-- INCLUDECSS css/jquery.simpledialog.css -->
-
+<!-- INCLUDECSS {ROOT_PATH}ext/forumhulp/helper/css/jquery.simpledialog.css -->
+<!-- INCLUDECSS {ROOT_PATH}ext/forumhulp/helper/css/ext_details.css -->
 <!-- INCLUDE overall_header.html -->
 
 <a name="maincontent"></a>
@@ -45,7 +45,7 @@
             <td class="row3" colspan="3"><b>{L_CRON_STATUS_READY_TASKS}</b><span id="date" style="float:right" title="{L_CRON_TASK_DATE_TIME}">&nbsp;</span></td>
         </tr>
         <!-- BEGIN ready -->
-        <tr>
+        <tr class="row-highlight">
             <td><strong>{ready.DISPLAY_NAME}</strong><!-- IF ready.LOCKED --> <a href="{U_UNLOCK}&action=reset"><i class="fa fa-lock cron-locked" title="{L_CRON_TASK_LOCKED}"></i></a><!-- ENDIF --><!-- IF CRON_URL -->{ready.CRON_TASK_RUN}<span class="cron_run" id="{ready.DISPLAY_NAME}">{L_CRON_TASK_RUN}</span><span class="cron_running" id="{ready.DISPLAY_NAME}_running">{L_CRON_TASK_RUNNING}</span><!-- ENDIF --></td>
             <td>{ready.TASK_DATE}</td>
             <td><!-- IF ready.NEW_DATE -->{ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
@@ -57,7 +57,7 @@
             <td class="row3" colspan="3"><b>{L_CRON_STATUS_NOT_READY_TASKS}</b><!-- IF not .ready --><span id="date" style="float:right" title="{L_CRON_TASK_DATE_TIME}">&nbsp;</span><!-- ENDIF --></td>
         </tr>
         <!-- BEGIN not_ready -->
-        <tr>
+        <tr class="row-highlight">
             <td><strong<!-- IF not_ready.TASK_OK or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <a href="{U_UNLOCK}&action=reset"><i class="fa fa-lock cron-locked" title="{L_CRON_TASK_LOCKED}"></i></a><!-- ENDIF --></td>
             <td>{not_ready.TASK_DATE}</td>
             <td><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
@@ -74,7 +74,7 @@
 	var cron_url = "{CRON_URL}";
 // ]]>
 </script>
-<!-- INCLUDEJS js/jquery.simpledialog.js -->
+<!-- INCLUDEJS {ROOT_PATH}ext/forumhulp/helper/js/jquery.simpledialog.js -->
 <!-- INCLUDEJS js/cronstatus.js -->
 <!-- ENDIF -->
 <!-- ELSE -->

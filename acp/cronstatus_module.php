@@ -12,80 +12,32 @@ namespace forumhulp\cronstatus\acp;
 class cronstatus_module
 {
 	public $u_action;
+
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpEx, $phpbb_extension_manager, $phpbb_container, $phpbb_dispatcher;
+		global $db, $config, $user, $cache, $template, $request, $phpbb_root_path, $phpEx, $phpbb_container, $phpbb_dispatcher;
 
 		$this->page_title = $user->lang['ACP_CRON_STATUS_TITLE'];
 		$this->tpl_name = 'acp_cronstatus';
 		$user->add_lang_ext('forumhulp/cronstatus', 'cronstatus');
+		$action = $request->variable('action', '');
 
-		list($sk_config, $sd_config) = explode("|", $config['cronstatus_default_sort']);
+		list($sk_config, $sd_config) = explode('|', $config['cronstatus_default_sort']);
 
 		$sk = $request->variable('sk', $sk_config);
 		$sd = $request->variable('sd', $sd_config);
 
 		if($sk != $sk_config || $sd != $sd_config)
 		{
-			$config->set("cronstatus_default_sort", $sk."|".$sd);
+			$config->set("cronstatus_default_sort", $sk . '|' . $sd);
 		}
 
-		$action = $request->variable('action', '');
 		switch ($action)
 		{
 			case 'details':
-
-			$user->add_lang(array('install', 'acp/extensions', 'migrator'));
-			$ext_name = 'forumhulp/cronstatus';
-			$md_manager = new \phpbb\extension\metadata_manager($ext_name, $config, $phpbb_extension_manager, $template, $user, $phpbb_root_path);
-			try
-			{
-				$this->metadata = $md_manager->get_metadata('all');
-			}
-			catch(\phpbb\extension\exception $e)
-			{
-				trigger_error($e, E_USER_WARNING);
-			}
-
-			$md_manager->output_template_data();
-
-			try
-			{
-				$updates_available = $this->version_check($md_manager, $request->variable('versioncheck_force', false));
-
-				$template->assign_vars(array(
-					'S_UP_TO_DATE'		=> empty($updates_available),
-					'S_VERSIONCHECK'	=> true,
-					'UP_TO_DATE_MSG'	=> $user->lang(empty($updates_available) ? 'UP_TO_DATE' : 'NOT_UP_TO_DATE', $md_manager->get_metadata('display-name')),
-				));
-
-				foreach ($updates_available as $branch => $version_data)
-				{
-					$template->assign_block_vars('updates_available', $version_data);
-				}
-			}
-			catch (\RuntimeException $e)
-			{
-				$template->assign_vars(array(
-					'S_VERSIONCHECK_STATUS'			=> $e->getCode(),
-					'VERSIONCHECK_FAIL_REASON'		=> ($e->getMessage() !== $user->lang('VERSIONCHECK_FAIL')) ? $e->getMessage() : '',
-				));
-			}
-
-			if ($request->is_ajax())
-			{
-				$template->assign_vars(array(
-					'IS_AJAX'				=> true,
-				));
-			}
-			else
-			{
-				$template->assign_vars(array(
-					'U_BACK'				=> $this->u_action,
-				));
-			}
-
-			$this->tpl_name = 'acp_ext_details';
+				$user->add_lang_ext('forumhulp/cronstatus', 'info_acp_cronstatus');
+				$phpbb_container->get('forumhulp.helper')->detail('forumhulp/cronstatus');
+				$this->tpl_name = 'acp_ext_details';
 			break;
 
 			case 'reset':
@@ -105,7 +57,6 @@ class cronstatus_module
 			$tasks = $task_array = array();
 			$tasks = $phpbb_container->get('cron.manager')->get_tasks();
 
-		//	$cronlock = '';
 			$rows = $phpbb_container->get('forumhulp.cronstatus.listener')->get_cron_tasks($cronlock);
 
 			if (sizeof($tasks) && is_array($rows))
@@ -162,10 +113,12 @@ class cronstatus_module
 						'task_sort'			=> ($task->is_ready()) ? 'ready' : 'not_ready',
 						'display_name'		=> $task_name,
 						'task_date'			=> $task_date,
-						'task_date_print'	=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ?	$user->format_date($task_date, $config['cronstatus_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
+						'task_date_print'	=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ?
+												$user->format_date($task_date, $config['cronstatus_dateformat']) : $user->lang['CRON_TASK_NEVER_STARTED']),
 						'new_date'			=> $new_task_date,
-						'new_date_print'	=> ($new_task_date > 0) ? $user->format_date($new_task_date, $config['cronstatus_dateformat']) : '-',
-						'task_ok'			=> ($task_date > 0 && ($new_task_date > time())) ? false : true,
+						'new_date_print'	=> ($new_task_date > 0 && ($name != 'queue_interval' && $name != 'plupload')) ?
+												$user->format_date($new_task_date, $config['cronstatus_dateformat']) : '-',
+						'task_ok'			=> ($task_date > 0 && ($new_task_date > time() || ($name == 'queue_interval' || $name == 'plupload'))) ? false : true,
 						'locked'			=> ($config['cron_lock'] && $cronlock == $task_name) ? true : false,
 					);
 				}
@@ -257,41 +210,5 @@ class cronstatus_module
 			}
 		}
 		return false;
-	}
-
-	/**
-	* Check the version and return the available updates.
-	*
-	* @param \phpbb\extension\metadata_manager $md_manager The metadata manager for the version to check.
-	* @param bool $force_update Ignores cached data. Defaults to false.
-	* @param bool $force_cache Force the use of the cache. Override $force_update.
-	* @return string
-	* @throws RuntimeException
-	*/
-	protected function version_check(\phpbb\extension\metadata_manager $md_manager, $force_update = false, $force_cache = false)
-	{
-		global $cache, $config, $user;
-		$meta = $md_manager->get_metadata('all');
-
-		if (!isset($meta['extra']['version-check']))
-		{
-			throw new \RuntimeException($this->user->lang('NO_VERSIONCHECK'), 1);
-		}
-
-		$version_check = $meta['extra']['version-check'];
-
-		if (version_compare($config['version'], '3.1.1', '>'))
-		{
-			$version_helper = new \phpbb\version_helper($cache, $config, new \phpbb\file_downloader(), $user);
-		}
-		else
-		{
-			$version_helper = new \phpbb\version_helper($cache, $config, $user);
-		}
-		$version_helper->set_current_version($meta['version']);
-		$version_helper->set_file_location($version_check['host'], $version_check['directory'], $version_check['filename']);
-		$version_helper->force_stability($config['extension_force_unstable'] ? 'unstable' : null);
-
-		return $updates = $version_helper->get_suggested_updates($force_update, $force_cache);
 	}
 }

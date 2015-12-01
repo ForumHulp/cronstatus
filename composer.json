@@ -37,7 +37,7 @@
             "phpbb/phpbb": ">=3.1.*"
         },
         "version-check": {
-            "host": "forumhulp.com",
+            "host": "forumhulp",
 			"directory": "/ext",
 			"filename": "index.php?id=28"
         }

@@ -22,7 +22,6 @@ $lang = array_merge($lang, array(
 	'CRON_LOCKED'						=> 'Cron заблокирован',
 	'CRON_TIME_LOCKED'					=> 'Время блокировки cron',
 	'ACP_CRON_STATUS_TITLE'				=> 'Статус Cron',
-	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Проверить Статус Cron',
 	'ACP_CRON_STATUS_EXPLAIN'			=> 'Статус Cron - это страница вашей конференции phpBB, где вы можете проверить доступные задания cron. Дата следующего задания “Авто” означает, что данное задание имеет особый механизм контроля времени, который не может быть распознан расширением Cron Status. Красным цветом выделены задания, которые никогда не выполнялись или с которыми возникли проблемы. Красный замок показывает задание, при выполнении которого cron был заблокирован планировщиком заданий.',
 	'CRON_STATUS_REFRESH'				=> 'Секунды до обновления',
 	'CRON_TASK_LOCKED'					=> 'Задание cron заблокировано',
@@ -45,15 +44,4 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Разработчики',
 	'CRON_TASK_RUN'						=> 'Выполнить',
 	'CRON_TASK_RUNNING'					=> 'Выполняется...',
-));
-
-// Description of Cron Status extension
-$lang = array_merge($lang, array(
-	'CRONSTATUS_DESCRIPTION_PAGE'				=> 'Страница Статуса Cron',
-	'CRONSTATUS_DESCRIPTION_PAGE_OVERVIEW'		=> 'Перечень заданий Cron (с сортировкой)',
-	'CRONSTATUS_DESCRIPTION_PAGE_STATUS'		=> 'Отображает статус каждого задания Cron',
-	'CRONSTATUS_DESCRIPTION_PAGE_ABILITY'		=> 'Вы можете вручную выполнить любое готовое для выполнения задание',
-	'CRONSTATUS_DESCRIPTION_NOTICE'				=> 'Уведомление о Статусе Cron (опционально)',
-	'CRONSTATUS_DESCRIPTION_NOTICE_OVERVIEW'	=> 'Отображается на главной странице администраторского раздела, когда cron заблокирован',
-	'CRONSTATUS_DESCRIPTION_NOTICE_SETTINGS'	=> 'Может быть выключено в разделе Настройки конференции',
 ));

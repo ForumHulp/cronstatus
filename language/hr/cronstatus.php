@@ -23,7 +23,6 @@ $lang = array_merge($lang, array(
 	'CRON_LOCKED'						=> '<em>Cron</em> (je) zaključan',
 	'CRON_TIME_LOCKED'					=> 'Vrijeme <em>crona</em>',
 	'ACP_CRON_STATUS_TITLE'				=> 'Status <em>crona</em>',
-	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Provjera statusa <em>crona</em>',
 	'ACP_CRON_STATUS_EXPLAIN'			=> 'Status <em>crona</em> je stranica phpBBa na kojoj možeš provjeriti jesu li <em>cron</em> zadatci spremni za pokretanje/izvršavanje.<br />“Automatski” datum zadnjeg zadatka odnosi se na zadatke s opcijom specifične vremenske kontrole koju ekstenzija “Status <em>crona</em>” nije mogla/ne može prepoznati.<br />Crvenom bojom označeni zadatci nikada nisu pokrenuti odnosno imaju problema.<br />“Crveno zaključanje” odnosi se na zadatke zaključane od strane <em>cron upravitelja</em> (a)	posljedica čega je blokiranje ostalih zadataka.',
 	'CRON_STATUS_REFRESH'				=> 'Preostalo sekundi do osvježavanja',
 	'CRON_TASK_LOCKED'					=> 'Zadatak <em>crona</em> (je) zaključan',
@@ -46,15 +45,4 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Razvojni/a programer/ka',
 	'CRON_TASK_RUN'						=> 'Pokreni',
 	'CRON_TASK_RUNNING'					=> 'Pokretanje [izvršavanje] u tijeku...',
-));
-
-// Description of Cron Status extension
-$lang = array_merge($lang, array(
-	'CRONSTATUS_DESCRIPTION_PAGE'				=> 'Stranica statusa <em>crona</em>',
-	'CRONSTATUS_DESCRIPTION_PAGE_OVERVIEW'		=> 'Pregled poslova <em>crona</em> (s redanjem)',
-	'CRONSTATUS_DESCRIPTION_PAGE_STATUS'		=> 'Prikazuje status svakog zadatka <em>crona</em>',
-	'CRONSTATUS_DESCRIPTION_PAGE_ABILITY'		=> 'Možeš pokrenuti bilo koji spreman zadatak ručno',
-	'CRONSTATUS_DESCRIPTION_NOTICE'				=> 'Obavijest statusa <em>crona</em> (opcionalno)',
-	'CRONSTATUS_DESCRIPTION_NOTICE_OVERVIEW'	=> 'Ukoliko je <em>cron</em> zaključan, bit će prikazana na početnoj stranici <em>Administriranja foruma [AF]</em>',
-	'CRONSTATUS_DESCRIPTION_NOTICE_SETTINGS'	=> 'Može biti isključen(o) u postavkama foruma',
 ));

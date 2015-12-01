@@ -23,7 +23,6 @@ $lang = array_merge($lang, array(
 	'CRON_LOCKED'						=> 'Cron arrêté',
 	'CRON_TIME_LOCKED'					=> 'Temps d’arrêt du Cron',
 	'ACP_CRON_STATUS_TITLE'				=> 'Statut du Cron',
-	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Vérifier le statut des tâches du Cron',
 	'ACP_CRON_STATUS_EXPLAIN'			=> 'Voici la page de votre forum phpBB où vous pouvez vérifier le statut des taches du Cron. L’indication "Automatique" concernant la dernière date d’une tâche signifie que la tâche a une option dédiée à la gestion de son temps qui ne peut être reconnue par l’extension « Cron Status ». Une tâche indiquée en rouge signifie qu’elle n’a jamais été exécutée ou qu’il y a un problème. Un verrou rouge signifie que cette tâche est verrouillée par le gestionnaire du Cron et bloque d’autres tâches.',
 	'CRON_STATUS_REFRESH'				=> 'Nombre de secondes avant l’actualisation',
 	'CRON_TASK_LOCKED'					=> 'Tâche du Cron arrêtée',
@@ -46,15 +45,4 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Développeurs',
 	'CRON_TASK_RUN'						=> 'Exécuter',
 	'CRON_TASK_RUNNING'					=> 'En cours d’exécution ...',
-));
-
-// Description of Cron Status extension
-$lang = array_merge($lang, array(
-	'CRONSTATUS_DESCRIPTION_PAGE'				=> 'Page du statut du Cron',
-	'CRONSTATUS_DESCRIPTION_PAGE_OVERVIEW'		=> 'Vue d’ensemble des tâches du Cron (avec tri).',
-	'CRONSTATUS_DESCRIPTION_PAGE_STATUS'		=> 'Affiche le statut de chaque tâche du Cron.',
-	'CRONSTATUS_DESCRIPTION_PAGE_ABILITY'		=> 'Vous pouvez exécuter manuellement n’importe quelle tâche disponible.',
-	'CRONSTATUS_DESCRIPTION_NOTICE'				=> 'Notification sur le statut du Cron (optionnelle)',
-	'CRONSTATUS_DESCRIPTION_NOTICE_OVERVIEW'	=> 'Est affichée sur la page de l’index de l’administration lorsque le Cron est arrêté.',
-	'CRONSTATUS_DESCRIPTION_NOTICE_SETTINGS'	=> 'Peut être désactivée dans la page « Configuration du forum ».',
 ));
