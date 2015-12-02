@@ -23,7 +23,7 @@ $lang = array_merge($lang, array(
 	'LOG_CORE_DEINSTALLED'	=> 'Files succesfully changed back',
 	'LOG_CORE_NOT_REPLACED'	=> 'Could not replaced file(s)<br />» %s',
 	'LOG_CORE_NOT_UPDATED'	=> 'Could not update file(s)<br />» %s',
-	'FH_HELPER_NOTICE'		=> 'Forumhulp helper application does not exist!<br />Download <a href="">forumhulp/helper</a> and copy the helper folder to your forumhulp extension folder.',
+	'FH_HELPER_NOTICE'		=> 'Forumhulp helper application does not exist!<br />Download <a href="https://github.com/ForumHulp/helper" target="_blank">forumhulp/helper</a> and copy the helper folder to your forumhulp extension folder.',
 	'CRONSTAT_NOTICE'		=> '<div class="phpinfo"><p class="entry">This extension resides in %1$s » %2$s » %3$s.</p></div>',
 ));
 
@@ -40,7 +40,8 @@ $lang = array_merge($lang, array(
 		),
 		'note' => array(
 			'NOTICE_1'			=> 'Cron Status Melding (optioneel)',
-			'NOTICE_2'			=> 'Configurable in Board settings'
+			'NOTICE_2'			=> 'Configurable in Board settings',
+			'NOTICE_3'			=> 'phpBB 3.2 ready'
 		)
 	)
 ));

@@ -9,7 +9,6 @@
 
 namespace forumhulp\cronstatus\migrations\v31x;
 
-use ext\forumhulp\helper\helper;
 use phpbb\db\migration\container_aware_migration;
 
 /**
