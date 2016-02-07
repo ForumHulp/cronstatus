@@ -54,6 +54,7 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.acp_main_notice'				=> 'load_cronstatus',
 			'core.acp_board_config_edit_add'	=> 'add_config',
+			'core.page_footer_after'			=> 'run_cron_always'
 		);
 	}
 
@@ -109,6 +110,7 @@ class listener implements EventSubscriberInterface
 			$submit_legend_number = substr($submit_key, 6);
 			$display_vars['vars']['legend'.$submit_legend_number] = 'ACP_CRON_STATUS_TITLE';
 			$new_vars = array(
+				'cronstatus_run_always'	=> array('lang' => 'CRON_STATUS_RUN_ALWAYS', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 				'cronstatus_dateformat'	=> array('lang' => 'CRON_STATUS_DATE_FORMAT', 'validate' => 'string', 'type' => 'custom', 'method' => 'dateformat_select', 'explain' => true),
 				'cronstatus_main_notice'	=> array('lang' => 'CRON_STATUS_MAIN_NOTICE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
 				'legend'.($submit_legend_number + 1) => 'ACP_SUBMIT_CHANGES',
@@ -202,5 +204,12 @@ class listener implements EventSubscriberInterface
 			}
 		}
 		return array('config_name' => $currentName , 'config_value' => $currentMax);
+	}
+
+	public function run_cron_always($event)
+	{
+			$this->template->assign_vars(array(
+				'RUN_CRON_ALWAYS' => $this->config['cronstatus_run_always']
+			));
 	}
 }

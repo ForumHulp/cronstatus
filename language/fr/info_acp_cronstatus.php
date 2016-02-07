@@ -42,7 +42,8 @@ $lang = array_merge($lang, array(
 		'note' => array(
 			'NOTICE_1'			=> 'Notification sur le statut du Cron (optionnelle)',
 			'NOTICE_2'			=> 'Peut être désactivée dans la page « Configuration du forum.',
-			'NOTICE_3'			=> 'phpBB 3.2 ready'
+			'NOTICE_3'			=> 'Switchable Run Cron Always',
+			'NOTICE_4'			=> 'phpBB 3.2 ready'
 		)
 	)
 ));

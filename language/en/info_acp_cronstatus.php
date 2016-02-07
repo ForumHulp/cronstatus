@@ -41,7 +41,8 @@ $lang = array_merge($lang, array(
 		'note' => array(
 			'NOTICE_1'		=> 'Cron Status Notice on main ACP page',
 			'NOTICE_2'		=> 'Configurable in Board settings',
-			'NOTICE_3'		=> 'phpBB 3.2 ready'
+			'NOTICE_3'		=> 'Switchable Run Cron Always',
+			'NOTICE_4'		=> 'phpBB 3.2 ready'
 		)
 	)
 ));

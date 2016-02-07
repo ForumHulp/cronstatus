@@ -38,6 +38,7 @@ class m2_config_data extends \phpbb\db\migration\migration
 			array('config.add', array('cronstatus_dateformat', '|d M Y|, H:i')),
 			array('config.add', array('cronstatus_main_notice', 'true')),
 			array('config.add', array('cronstatus_default_sort', 'display_name|a')),
+			array('config.add', array('cronstatus_run_always', 0)),
 		);
 	}
 }

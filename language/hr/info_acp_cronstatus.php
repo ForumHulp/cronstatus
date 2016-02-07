@@ -42,7 +42,8 @@ $lang = array_merge($lang, array(
 		'note' => array(
 			'NOTICE_1'			=> 'Obavijest statusa <em>crona</em> (opcionalno)',
 			'NOTICE_2'			=> 'Može biti isključen(o) u postavkama foruma',
-			'NOTICE_3'			=> 'phpBB 3.2 ready'
+			'NOTICE_3'			=> 'Switchable Run Cron Always',
+			'NOTICE_4'			=> 'phpBB 3.2 ready'
 		)
 	)
 ));

@@ -98,5 +98,4 @@ class m1_initial_schema extends container_aware_migration
 			);
 		return $replacements;
 	}
-
 }

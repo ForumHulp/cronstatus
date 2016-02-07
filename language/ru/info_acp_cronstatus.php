@@ -41,7 +41,8 @@ $lang = array_merge($lang, array(
 		'note' => array(
 			'NOTICE_1'			=> 'Уведомление о Статусе Cron (опционально)',
 			'NOTICE_2'			=> 'Может быть выключено в разделе Настройки конференции',
-			'NOTICE_3'			=> 'phpBB 3.2 ready'
+			'NOTICE_3'			=> 'Switchable Run Cron Always',
+			'NOTICE_4'			=> 'phpBB 3.2 ready'
 		)
 	)
 ));
