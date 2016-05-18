@@ -32,19 +32,19 @@ class ext extends \phpbb\extension\base
 		switch ($old_state)
 		{
 			case '': // Empty means nothing has run yet
-				if (empty($old_state))
-				{
-					$this->container->get('user')->add_lang_ext('forumhulp/cronstatus', 'info_acp_cronstatus');
-					$this->container->get('template')->assign_var('L_EXTENSION_ENABLE_SUCCESS', $this->container->get('user')->lang['EXTENSION_ENABLE_SUCCESS'] .
-						(isset($this->container->get('user')->lang['CRONSTAT_NOTICE']) ?
-							sprintf($this->container->get('user')->lang['CRONSTAT_NOTICE'],
-									$this->container->get('user')->lang['ACP_CAT_MAINTENANCE'],
-									$this->container->get('user')->lang['ACP_FORUM_LOGS'],
-									$this->container->get('user')->lang['ACP_CRON_STATUS_TITLE']) : ''));
-				}
+			if (empty($old_state))
+			{
+				$this->container->get('user')->add_lang_ext('forumhulp/cronstatus', 'info_acp_cronstatus');
+				$this->container->get('template')->assign_var('L_EXTENSION_ENABLE_SUCCESS', $this->container->get('user')->lang['EXTENSION_ENABLE_SUCCESS'] .
+					(isset($this->container->get('user')->lang['CRONSTAT_NOTICE']) ?
+						sprintf($this->container->get('user')->lang['CRONSTAT_NOTICE'],
+								$this->container->get('user')->lang['ACP_CAT_MAINTENANCE'],
+								$this->container->get('user')->lang['ACP_FORUM_LOGS'],
+								$this->container->get('user')->lang['ACP_CRON_STATUS_TITLE']) : ''));
+			}
 
-				// Run parent enable step method
-				return parent::enable_step($old_state);
+			// Run parent enable step method
+			return parent::enable_step($old_state);
 
 			break;
 

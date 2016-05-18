@@ -84,7 +84,7 @@ class listener implements EventSubscriberInterface
 	// array_search with partial matches
 	public function array_find($needle, $haystack)
 	{
-		if(!is_array($haystack))
+		if (!is_array($haystack))
 		{
 			return false;
 		}
@@ -100,7 +100,7 @@ class listener implements EventSubscriberInterface
 
 	public function add_config($event)
 	{
-		if($event['mode'] == 'settings')
+		if ($event['mode'] == 'settings')
 		{
 			$this->user->add_lang_ext('forumhulp/cronstatus', 'cronstatus');
 			$display_vars = $event['display_vars'];
@@ -191,9 +191,9 @@ class listener implements EventSubscriberInterface
 	public function maxValueInArray($array, $keyToSearch)
 	{
 		$currentMax = null;
-		foreach($array as $arr)
+		foreach ($array as $arr)
 		{
-			foreach($arr as $key => $value)
+			foreach ($arr as $key => $value)
 			{
 				if (($key == $keyToSearch) && ($value >= $currentMax) && ((strrpos($arr['config_name'], '_last_gc') === strlen($arr['config_name']) - 8) || $arr['config_name'] === 'last_queue_run'))
 				{

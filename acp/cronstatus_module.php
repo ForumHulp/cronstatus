@@ -27,7 +27,7 @@ class cronstatus_module
 		$sk = $request->variable('sk', $sk_config);
 		$sd = $request->variable('sd', $sd_config);
 
-		if($sk != $sk_config || $sd != $sd_config)
+		if ($sk != $sk_config || $sd != $sd_config)
 		{
 			$config->set("cronstatus_default_sort", $sk . '|' . $sd);
 		}
@@ -64,14 +64,14 @@ class cronstatus_module
 				foreach ($tasks as $task)
 				{
 					$task_name = $task->get_name();
-					if(empty($task_name))
+					if (empty($task_name))
 					{
 						continue;
 					}
 
 					$task_date = -1;
 					$find = strpos($task_name, 'tidy');
-					if($find !== false)
+					if ($find !== false)
 					{
 						$name = substr($task_name, $find + 5);
 						$name = ($name == 'sessions') ? 'session' : $name;
@@ -126,7 +126,7 @@ class cronstatus_module
 
 				$task_array = $this->array_sort($task_array, $sk, (($sd == 'a') ? SORT_ASC : SORT_DESC));
 
-				foreach($task_array as $row)
+				foreach ($task_array as $row)
 				{
 					$template->assign_block_vars($row['task_sort'], array(
 						'DISPLAY_NAME'	=> $row['display_name'],
@@ -198,7 +198,7 @@ class cronstatus_module
 	// array_search with partial matches
 	public function array_find($needle, $haystack)
 	{
-		if(!is_array($haystack))
+		if (!is_array($haystack))
 		{
 			return false;
 		}
