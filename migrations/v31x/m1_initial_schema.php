@@ -51,6 +51,7 @@ class m1_initial_schema extends container_aware_migration
 			if (!$this->container->has('forumhulp.helper'))
 			{
 				$forumhulp_helper = new \forumhulp\helper\helper(
+					$this->container->get('dbal.conn'),
 					$this->config,
 					$this->container->get('ext.manager'),
 					$this->container->get('template'),
@@ -76,6 +77,7 @@ class m1_initial_schema extends container_aware_migration
 			'files' => array(
 				0 => '/cron.' . $this->php_ext,
 				1 => '/phpbb/lock/db.' . $this->php_ext,
+				2 => '/includes/functions.' . $this->php_ext
 				),
 			'searches' => array(
 				0 => array(
@@ -85,6 +87,9 @@ class m1_initial_schema extends container_aware_migration
 					0 => 'public function acquire()',
 					1 => '$this->unique_id = time() . \' \' . unique_id();',
 					),
+				2 => array(
+					0 => 'if (!defined(\'IN_CRON\') && !$config[\'use_system_cron\'] && $run_cron && !$config[\'board_disable\'] && !$user->data[\'is_bot\'] && !$cache->get(\'_cron.lock_check\'))'
+					)
 				),
 			'replaces' => array(
 				0 => array(
@@ -94,6 +99,9 @@ class m1_initial_schema extends container_aware_migration
 					0 => 'public function acquire($task = \'\')',
 					1 => '$this->unique_id = time() . \' \' . $task;',
 					),
+				2 => array(
+					0 => 'if (!defined(\'IN_CRON\') && !$config[\'use_system_cron\'] && $run_cron && !$config[\'board_disable\'] && ($config[\'cronstatus_run_always\'] || !$user->data[\'is_bot\']) && !$cache->get(\'_cron.lock_check\'))'
+					)
 				)
 			);
 		return $replacements;

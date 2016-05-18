@@ -54,7 +54,6 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.acp_main_notice'				=> 'load_cronstatus',
 			'core.acp_board_config_edit_add'	=> 'add_config',
-			'core.page_footer_after'			=> 'run_cron_always'
 		);
 	}
 
@@ -204,12 +203,5 @@ class listener implements EventSubscriberInterface
 			}
 		}
 		return array('config_name' => $currentName , 'config_value' => $currentMax);
-	}
-
-	public function run_cron_always($event)
-	{
-			$this->template->assign_vars(array(
-				'RUN_CRON_ALWAYS' => $this->config['cronstatus_run_always']
-			));
 	}
 }
