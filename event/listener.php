@@ -22,6 +22,7 @@ class listener implements EventSubscriberInterface
 	protected $config;
 	protected $helper;
 	protected $user;
+	protected $request;
 	protected $template;
 	protected $db;
 	protected $cron_manager;
@@ -38,11 +39,12 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\cron\manager               $cron_manager     Cron manager object
 	* @param \phpbb\event\dispatcher           $phpbb_dispatcher Event dispatcher object
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\user $user, \phpbb\template\template $template, \phpbb\db\driver\driver_interface $db, \phpbb\cron\manager $cron_manager, \phpbb\event\dispatcher $phpbb_dispatcher)
+	public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\user $user, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\db\driver\driver_interface $db, \phpbb\cron\manager $cron_manager, \phpbb\event\dispatcher $phpbb_dispatcher)
 	{
 		$this->config = $config;
 		$this->helper = $helper;
 		$this->user = $user;
+		$this->request = $request;
 		$this->template = $template;
 		$this->db = $db;
 		$this->cron_manager = $cron_manager;
@@ -52,10 +54,20 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
+			'core.user_setup'					=> 'cron_always',
 			'core.acp_main_notice'				=> 'load_cronstatus',
+			'core.cron_run_before'				=> 'update_gc',
 			'core.acp_board_config_edit_add'	=> 'add_config',
 		);
 	}
+
+	public function cron_always()
+	{
+		$this->template->assign_vars(array(
+			'RUN_CRON_ALWAYS' => $this->config['cronstatus_run_always']
+		));
+	}
+
 
 	public function load_cronstatus($event)
 	{
@@ -116,6 +128,34 @@ class listener implements EventSubscriberInterface
 			);
 			$display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $new_vars, array('after' => $submit_key));
 			$event['display_vars'] = $display_vars;
+		}
+	}
+
+	public function update_gc()
+	{
+		$run_now = $this->request->variable('run_now', false);
+		$cron_type = $this->request->variable('cron_type', '');
+		if ($run_now)
+		{
+		//	$rows = $phpbb_container->get('forumhulp.cronstatus.listener')->get_cron_tasks($cronlock);
+			$find = strpos($cron_type, 'tidy');
+			if ($find !== false)
+			{
+				$name = substr($cron_type, $find + 5);
+				$name = ($name == 'sessions') ? 'session' : $name . '_last_gc';
+			} else if (strpos($cron_type, 'prune_notifications'))
+			{
+				$name = 'read_notification_last_gc';
+			} else if (strpos($cron_type, 'queue'))
+			{
+				$name = 'last_queue_run';
+			} else
+			{
+				$name = (strrpos($cron_type, ".") !== false) ? substr($cron_type, strrpos($cron_type, ".") + 1) : $cron_type;
+				$name = $name . '_last_gc';
+			}
+			echo $name;
+			$this->config->set($name, time());
 		}
 	}
 

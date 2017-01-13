@@ -39,8 +39,10 @@
 					$('#date').text(getISODateTime());
 					$(".cron_run_link").css("display", "none");
 					$(".cron_run").bind("click", run_cron);
+					$(".cron_now").bind("click", run_now);
 					$(".cron_run").css("display", "block");
-					parse_document($("#cron_table_container"));
+					$(".cron_now").css("display", "block");
+				//	parse_document($("#cron_table_container"));
 				}
 			});
 		}
@@ -71,6 +73,16 @@
 	}
 	// For immediate display
 	$('#date').text(getISODateTime());
+
+	function run_now(event) {
+		cron_now = this;
+		var cron_task = this.id;
+		$("#run_cron_task").attr("src", cron_url + "&run_now=true&cron_type=" + cron_task);
+		$(".cron_now").css("display", "none");
+		$(this).next().css("display", "block");
+		time = 10;
+	}
+	$(".cron_now").bind("click", run_now);
 
 	function run_cron(event) {
 		cron_run = this;

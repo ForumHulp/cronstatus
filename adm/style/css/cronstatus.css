@@ -2,7 +2,6 @@
 
 h1 {position: relative;}
 #circle {display: none; float: right; font-size: 30px;}
-
 #ProgressStatus {display: none; position: absolute; z-index: 2; top: 2px; right: 8px; font-size: 12px; font-weight: bold;}
 
 .table1 th + th {text-align: center; width: 200px;}
@@ -31,5 +30,7 @@ h1 {position: relative;}
 
 .cron_run {float: right; color: #105289; cursor: pointer; display: none;}
 .cron_run:hover {color: #bc2a4d; text-decoration: underline;}
+.cron_now {float: right; color: #105289; cursor: pointer;}
+.cron_now:hover {color: #bc2a4d; text-decoration: underline;}
 .cron_run_link, .cron_running_update {float: right;}
 .cron_running {float: right; display: none;}
