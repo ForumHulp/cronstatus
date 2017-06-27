@@ -118,7 +118,7 @@ class cronstatus_module
 					{
 						$name = (strrpos($task_name, ".") !== false) ? substr($task_name, strrpos($task_name, ".") + 1) : $task_name;
 						$task_last_gc = $this->array_find($name . '_last_gc', $rows);
-						$task_date = ($task_last_gc !== false) ? (int) $task_last_gc : 0;	
+						$task_date = ($task_last_gc !== false) ? (int) $task_last_gc : 0;
 					}
 
 					$new_task_interval = ($task_date > 0) ? $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) : 0;
