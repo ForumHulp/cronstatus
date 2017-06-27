@@ -1,13 +1,15 @@
 ; (function ($, window, document) {
 	// do stuff here and use $, window and document safely
 	// https://www.phpbb.com/community/viewtopic.php?p=13589106#p13589106
+	'use strict';
+	
 	$(".cron_run_link").css("display", "none");
 	$("#ProgressStatus, #circle, .cron_run").css("display", "block");
 	var time = 59;
 	function progress() {
 		var element = $('#ProgressStatus');
 		var circle = $('#circle');
-		if (time === 9) element.css("right", "12px");
+		if (time === 9) {element.css("right", "12px");}
 		element.html(time);
 		$('#date').text(getISODateTime());
 		if (time === 0) {
@@ -18,9 +20,9 @@
 			$.ajax({
 				url: removeParam('action', window.location.href) + "&table=true",
 				context: document.getElementById("cron_table"),
-				error: function (e, text, ee) {
+				error: function (e, text) {
 					circle.css("display", "none");
-					if (text == "timeout") {
+					if (text === "timeout") {
 						$("#LoadErrorTimeout").css("display", "inline-block");
 						$("#LoadError").css("display", "block");
 					} else {
@@ -28,7 +30,7 @@
 						$("#LoadError").css("display", "block");
 					}
 				},
-				success: function (s, x) {
+				success: function (s) {
 					element.css("right", "8px");
 					element.html(60);
 					time = 59;
@@ -42,7 +44,6 @@
 					$(".cron_now").bind("click", run_now);
 					$(".cron_run").css("display", "block");
 					$(".cron_now").css("display", "block");
-				//	parse_document($("#cron_table_container"));
 				}
 			});
 		}
@@ -57,13 +58,8 @@
 	});
 
 	function getISODateTime(d) {
-		var s = function(a,b){return(1e15+a+"").slice(-b)};
-
-		if (typeof d === 'undefined') {
-			d = new Date();
-		};
-
-		// return ISO datetime
+		var s = function(a,b){return(1e15+a+"").slice(-b);};
+		if (typeof d === 'undefined') {d = new Date();}
 		return  s(d.getDate(),2) + '-' +
 				s(d.getMonth()+1,2) + '-' +
 				d.getFullYear() + ' ' +
@@ -75,20 +71,28 @@
 	$('#date').text(getISODateTime());
 
 	function run_now(event) {
-		cron_now = this;
-		var cron_task = this.id;
-		$("#run_cron_task").attr("src", cron_url + "&run_now=true&cron_type=" + cron_task);
+		event.preventDefault();
+		$(".cron_run").css("display", "none");
 		$(".cron_now").css("display", "none");
+		 /*jshint validthis: true */
+		var cron_task = this.id;
 		$(this).next().css("display", "block");
-		time = 10;
+
+		$.ajax({
+			url: removeParam('action', window.location.href) + "&action=runnow&table=true&cron_type=" + cron_task + "&t=" + time,
+			success: function () {
+				$("#run_cron_task").attr("src", cron_url + "&cron_type=" + cron_task + "&t=" + time);
+				time = 10;
+			}
+		});
 	}
 	$(".cron_now").bind("click", run_now);
 
-	function run_cron(event) {
-		cron_run = this;
-		var cron_task = this.id;
-		$("#run_cron_task").attr("src", cron_url + "&cron_type=" + cron_task);
+	function run_cron() {
+		$("#run_cron_task").attr("src", cron_url + "&cron_type=" + this.id + "&t=" + time);
 		$(".cron_run").css("display", "none");
+		$(".cron_now").css("display", "none");
+		 /*jshint validthis: true */
 		$(this).next().css("display", "block");
 		time = 10;
 	}

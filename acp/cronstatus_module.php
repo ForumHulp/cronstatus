@@ -40,6 +40,29 @@ class cronstatus_module
 				$this->tpl_name = 'acp_ext_details';
 			break;
 
+			case 'runnow':
+				$cron_type = $request->variable('cron_type', '');
+				$find = strpos($cron_type, 'tidy');
+				if ($find !== false)
+				{
+					$name = substr($cron_type, $find + 5);
+					$name = ($name == 'sessions') ? 'session' : $name . '_last_gc';
+				} else if (strpos($cron_type, 'prune_notifications'))
+				{
+					$name = 'read_notification_last_gc';
+				} else if (strpos($cron_type, 'queue'))
+				{
+					$name = 'last_queue_run';
+				} else
+				{
+					$name = (strrpos($cron_type, ".") !== false) ? substr($cron_type, strrpos($cron_type, ".") + 1) : $cron_type;
+					$name = $name . '_last_gc';
+				}
+
+				$config->set($name, 12/*time()*/);
+				exit();
+			break;
+
 			case 'reset':
 				$config->set('cron_lock', 0);
 
@@ -58,7 +81,6 @@ class cronstatus_module
 			$tasks = $phpbb_container->get('cron.manager')->get_tasks();
 
 			$rows = $phpbb_container->get('forumhulp.cronstatus.listener')->get_cron_tasks($cronlock);
-
 			if (sizeof($tasks) && is_array($rows))
 			{
 				foreach ($tasks as $task)
@@ -84,14 +106,23 @@ class cronstatus_module
 					{
 						$task_date = (int) $this->array_find('last_queue_run', $rows);
 						$name = 'queue_interval';
+					} else if (strpos($task_name, 'text_reparser'))
+					{
+						$task_date = (int) $this->array_find(str_replace('cron.task.', '', $task_name) . '_last_cron', $rows);
+						$name = $task_name;
+					} else if (strpos($task_name, 'update_hashes'))
+					{
+						$task_date = (int) $this->array_find(str_replace('cron.task.core.', '', $task_name) . '_last_cron', $rows);
+						$name = $task_name;
 					} else
 					{
 						$name = (strrpos($task_name, ".") !== false) ? substr($task_name, strrpos($task_name, ".") + 1) : $task_name;
 						$task_last_gc = $this->array_find($name . '_last_gc', $rows);
-						$task_date = ($task_last_gc !== false) ? (int) $task_last_gc : 0;
+						$task_date = ($task_last_gc !== false) ? (int) $task_last_gc : 0;	
 					}
 
 					$new_task_interval = ($task_date > 0) ? $this->array_find($name . (($name != 'queue_interval') ? '_gc': ''), $rows) : 0;
+					$new_task_interval = ($task_date > 0) ? $this->array_find(str_replace('cron.task.', '', $name) . (($name == 'text_reparser') ? '_cron_interval': ''), $rows) : 0;
 					$new_task_date = ($new_task_interval > 0) ? $task_date + $new_task_interval : 0;
 
 					/**

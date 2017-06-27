@@ -56,7 +56,6 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.user_setup'					=> 'cron_always',
 			'core.acp_main_notice'				=> 'load_cronstatus',
-			'core.cron_run_before'				=> 'update_gc',
 			'core.acp_board_config_edit_add'	=> 'add_config',
 		);
 	}
@@ -131,40 +130,13 @@ class listener implements EventSubscriberInterface
 		}
 	}
 
-	public function update_gc()
-	{
-		$run_now = $this->request->variable('run_now', false);
-		$cron_type = $this->request->variable('cron_type', '');
-		if ($run_now)
-		{
-		//	$rows = $phpbb_container->get('forumhulp.cronstatus.listener')->get_cron_tasks($cronlock);
-			$find = strpos($cron_type, 'tidy');
-			if ($find !== false)
-			{
-				$name = substr($cron_type, $find + 5);
-				$name = ($name == 'sessions') ? 'session' : $name . '_last_gc';
-			} else if (strpos($cron_type, 'prune_notifications'))
-			{
-				$name = 'read_notification_last_gc';
-			} else if (strpos($cron_type, 'queue'))
-			{
-				$name = 'last_queue_run';
-			} else
-			{
-				$name = (strrpos($cron_type, ".") !== false) ? substr($cron_type, strrpos($cron_type, ".") + 1) : $cron_type;
-				$name = $name . '_last_gc';
-			}
-			echo $name;
-			$this->config->set($name, time());
-		}
-	}
-
 	public function get_cron_tasks(&$cronlock, $get_last_task = false)
 	{
-		$sql = "SELECT config_name, config_value FROM " . CONFIG_TABLE . " WHERE config_name LIKE " . (($get_last_task) ? "'%_last_gc' OR config_name = 'last_queue_run' ORDER BY config_value DESC" : "'%_gc' OR config_name = 'last_queue_run' OR config_name = 'queue_interval' OR config_name = 'autogroups_last_run'");
+		$sql = "SELECT config_name, config_value FROM " . CONFIG_TABLE . " WHERE config_name LIKE " . (($get_last_task) ? "'%_last_gc' OR config_name = 'last_queue_run' ORDER BY config_value DESC" : "'%_gc' OR config_name = 'last_queue_run' OR config_name = 'queue_interval' OR config_name = 'autogroups_last_run' OR config_name = 'update_hashes_last_cron' OR config_name LIKE 'text_reparser%'");
 		$result = ($get_last_task) ? $this->db->sql_query_limit($sql, 1) : $this->db->sql_query($sql);
 		$rows = $this->db->sql_fetchrowset($result);
 		$this->db->sql_freeresult($result);
+
 		$rows[] = array(
 			"config_name"	=> "autogroups_check_last_gc", // This is the time of the last Cron Job.
 			"config_value"	=> $this->array_find('autogroups_last_run', $rows)
