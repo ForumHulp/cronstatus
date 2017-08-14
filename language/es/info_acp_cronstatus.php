@@ -19,30 +19,30 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'ACP_CRON_STATUS_TITLE'	=> 'Estado del Cron',
-	'LOG_CORE_INSTALLED'	=> 'Files succesfully changed',
-	'LOG_CORE_DEINSTALLED'	=> 'Files succesfully changed back',
-	'LOG_CORE_NOT_REPLACED'	=> 'Could not replaced file(s)<br />» %s',
-	'LOG_CORE_NOT_UPDATED'	=> 'Could not update file(s)<br />» %s',
-	'FH_HELPER_NOTICE'		=> 'Forumhulp helper application does not exist!<br />Download <a href="https://github.com/ForumHulp/helper" target="_blank">forumhulp/helper</a> and copy the helper folder to your forumhulp extension folder.',
-	'CRONSTAT_NOTICE'		=> '<div class="phpinfo"><p class="entry">This extension resides in %1$s » %2$s » %3$s.</p></div>',
+	'LOG_CORE_INSTALLED'	=> 'Archivos cambiados correctamente',
+	'LOG_CORE_DEINSTALLED'	=> 'Archivos cambiados de nuevo correctamente',
+	'LOG_CORE_NOT_REPLACED'	=> 'No se pudo reemplazar el archivo, o archivo(s)<br />» %s',
+	'LOG_CORE_NOT_UPDATED'	=> 'No se pudo actualizar el archivo, o archivo(s)<br />» %s',
+	'FH_HELPER_NOTICE'		=> '¡La aplicación Forumhulp helper no existe!<br />Descargar <a href="https://github.com/ForumHulp/helper" target="_blank">forumhulp/helper</a> y copie la carpeta helper dentro de la carpeta de extensión forumhulp.',
+	'CRONSTAT_NOTICE'		=> '<div class="phpinfo"><p class="entry">Esta extensión reside en %1$s » %2$s » %3$s.</p></div>',
 ));
 
 // Description of Cron Status extension
 $lang = array_merge($lang, array(
-	'DESCRIPTION_PAGE'		=> 'Description',
-	'DESCRIPTION_NOTICE'	=> 'Extension note',
+	'DESCRIPTION_PAGE'		=> 'Descripción',
+	'DESCRIPTION_NOTICE'	=> 'Nota de la extensión',
 	'ext_details' => array(
 		'details' => array(
 			'DESCRIPTION_1'		=> 'Visión general de trabajos Cron (con clasificación)',
 			'DESCRIPTION_2'		=> 'Muestra el estado de cada tarea Cron',
 			'DESCRIPTION_3'		=> 'Puede ejecutar cualquier tarea preparada manualmente',
-			'DESCRIPTION_4'		=> 'Reset cronlock with a simple click',
+			'DESCRIPTION_4'		=> 'Restablecer cronlock con un simple clic',
 		),
 		'note' => array(
 			'NOTICE_1'			=> 'Noticia de Estado Cron (opcional)',
 			'NOTICE_2'			=> 'Puede apagar esta opción en los Ajustes del Foro',
-			'NOTICE_3'			=> 'Switchable Run Cron Always',
-			'NOTICE_4'			=> 'phpBB 3.2 ready'
+			'NOTICE_3'			=> 'Cron conmutables siempre',
+			'NOTICE_4'			=> 'Preparado para phpBB 3.2'
 		)
 	)
 ));
