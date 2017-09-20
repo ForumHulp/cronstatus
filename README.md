@@ -8,6 +8,8 @@ Cron Status displays an overview of Board's Cron Jobs in Maintenance module of A
 * phpBB 3.1.0 or higher
 * PHP 5.3.3 or higher
 
+You can also download an [old release for early development versions of phpBB 3.1.0](https://github.com/ForumHulp/cronstatus/releases/tag/v3.1.0-dev).
+
 ## Quick Installation
 You can quickly install this extension on the latest version of [phpBB 3.1](https://www.phpbb.com/downloads/) or on the latest development version of [phpBB 3.1-dev](https://github.com/phpbb/phpbb3) by doing the following:
 
@@ -26,7 +28,7 @@ You can install this extension on the latest version of [phpBB 3.1](https://www.
 
 ## Usage
 ### Cron Status page
-To check the Cron Status navigate in the ACP to `Maintenance -> Cron Status -> Check Cron Status`.
+To check the Cron Status navigate in the ACP to `Maintenance -> Forum Logs -> Cron Status`.
 
 ### Cron Status Notice
 Cron Status Notice is displayed on the main page of ACP when Cron is locked. This notice provides some information about the last Cron task that made Cron locked.
@@ -47,6 +49,8 @@ Navigate in the ACP to `General -> Board configuration -> Board settings -> Cron
 Navigate in the ACP to `Customise -> Extension Management -> Manage extensions -> Cron Status` and click `Disable`.
 
 For permanent uninstallation click `Delete Data` and then you can safely delete the `/ext/forumhulp/cronstatus/` folder.
+
+We feel sorry as our answers on phpbb sites are removed, so use github or our forum for answers.
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)

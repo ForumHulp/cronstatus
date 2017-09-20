@@ -22,7 +22,6 @@ $lang = array_merge($lang, array(
 	'CRON_LOCKED'						=> 'Taak geblokkeerd',
 	'CRON_TIME_LOCKED'					=> 'Taak tijd geblokkeerd',
 	'ACP_CRON_STATUS_TITLE'				=> 'Cron Status',
-	'ACP_CRON_STATUS_CONFIG_TITLE'		=> 'Controleer Cron Status',
 	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status bied je een overzicht van taken in je forum. De “Auto” vermelding betekent dat er geen geldige tijd- datum is gevonden door de Cron Status extensie. Taken worden in de kleur rood of groen weergegeven. Rood betekent dat de taak nog nooit is gestart of er een probleem mee is. Een geblokkeerde taak heeft een rood slotje achter zijn naam staan.',
 	'CRON_STATUS_REFRESH'				=> 'Seconden voor verversen pagina',
 	'CRON_TASK_LOCKED'					=> 'Taak geblokkeerd',
@@ -33,6 +32,8 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DATE_FORMAT_EXPLAIN'	=> 'Het datum formaat is hetzelfde als de PHP <code>date</code> functie.',
 	'CRON_STATUS_MAIN_NOTICE'			=> 'Waarschuwing op ACP index pagina',
 	'CRON_STATUS_MAIN_NOTICE_EXPLAIN'	=> 'Toon Cron Status Waarschuwing op ACP index pagina als taken zijn geblokkeerd.',
+	'CRON_STATUS_RUN_ALWAYS'			=> 'Run cron always',
+	'CRON_STATUS_RUN_ALWAYS_EXPLAIN'	=> 'Run cron jobs also triggered by bots. Works great for forums not that busy.',
 	'CRON_TASK_NAME'					=> 'Taak naam',
 	'CRON_TASK_DATE'					=> 'Laatste taak datum',
 	'CRON_NEW_DATE'						=> 'Nieuwe taak datum',
@@ -45,15 +46,4 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Ontwikkelaars',
 	'CRON_TASK_RUN'						=> 'Run',
 	'CRON_TASK_RUNNING'					=> 'Running...',
-));
-
-// Description of Cron Status extension
-$lang = array_merge($lang, array(
-	'CRONSTATUS_DESCRIPTION_PAGE'				=> 'Cron Status pagina',
-	'CRONSTATUS_DESCRIPTION_PAGE_OVERVIEW'		=> 'Overzicht van taken (met sortering)',
-	'CRONSTATUS_DESCRIPTION_PAGE_STATUS'		=> 'Toon de status van iedere taak',
-	'CRONSTATUS_DESCRIPTION_PAGE_ABILITY'		=> 'Start een taak manueel',
-	'CRONSTATUS_DESCRIPTION_NOTICE'				=> 'Cron Status Melding (optioneel)',
-	'CRONSTATUS_DESCRIPTION_NOTICE_OVERVIEW'	=> 'Melding op hoofdpagina ACP als taak is geblokkeerd',
-	'CRONSTATUS_DESCRIPTION_NOTICE_SETTINGS'	=> 'Kan uitgeschakeld worden in Forum instellingen',
 ));

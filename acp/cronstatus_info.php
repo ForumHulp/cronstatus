@@ -14,15 +14,12 @@ class cronstatus_info
 	function module()
 	{
 		return array(
-			'filename'    => 'forumhulp\cronstatus\acp\cronstatus_module',
-			'title'        => 'ACP_CRON_STATUS_TITLE',
-			'version'    => '1.0.0',
-			'modes'        => array(
-				'config'		=> array(
-											'title'	=> 'ACP_CRON_STATUS_CONFIG_TITLE',
-											'auth'	=> 'ext_forumhulp/cronstatus',
-											'cat'	=> array('ACP_CAT_MAINTENANCE')
-										),
+			'filename'		=> 'forumhulp\cronstatus\acp\cronstatus_module',
+			'title'			=> 'ACP_CRON_STATUS_TITLE',
+			'version'		=> '1.0.0',
+			'modes'			=> array(
+				'config'	=> array('title' => 'ACP_CRON_STATUS_TITLE', 'auth' => 'ext_forumhulp/cronstatus', 'cat' => array('ACP_CAT_MAINTENANCE')
+				),
 			),
 		);
 	}

@@ -3,6 +3,7 @@
 *
 * @package cronstatus
 * @copyright (c) 2014 John Peskens (http://ForumHulp.com) and Igor Lavrov (https://github.com/LavIgor)
+* Croatian translation by Ančica Sečan (http://ancica.sunceko.net)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -18,7 +19,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACP_CRON_STATUS_TITLE'	=> 'Cron Status',
+	'ACP_CRON_STATUS_TITLE'	=> 'Status <em>crona</em>',
 	'LOG_CORE_INSTALLED'	=> 'Files succesfully changed',
 	'LOG_CORE_DEINSTALLED'	=> 'Files succesfully changed back',
 	'LOG_CORE_NOT_REPLACED'	=> 'Could not replaced file(s)<br />» %s',
@@ -27,22 +28,22 @@ $lang = array_merge($lang, array(
 	'CRONSTAT_NOTICE'		=> '<div class="phpinfo"><p class="entry">This extension resides in %1$s » %2$s » %3$s.</p></div>',
 ));
 
-// Description of Donations extension
+// Description of Cron Status extension
 $lang = array_merge($lang, array(
 	'DESCRIPTION_PAGE'		=> 'Description',
 	'DESCRIPTION_NOTICE'	=> 'Extension note',
 	'ext_details' => array(
 		'details' => array(
-			'DESCRIPTION_1'	=> 'Overview of Cron Jobs (with sorting)',
-			'DESCRIPTION_2'	=> 'Displays the status of each Cron Task',
-			'DESCRIPTION_3'	=> 'You can run any ready task manually',
-			'DESCRIPTION_4'	=> 'Reset cronlock with a simple click',
+			'DESCRIPTION_1'		=> 'Pregled poslova <em>crona</em> (s redanjem)',
+			'DESCRIPTION_2'		=> 'Prikazuje status svakog zadatka <em>crona</em>',
+			'DESCRIPTION_3'		=> 'Možeš pokrenuti bilo koji spreman zadatak ručno',
+			'DESCRIPTION_4'		=> 'Reset cronlock with a simple click',
 		),
 		'note' => array(
-			'NOTICE_1'		=> 'Cron Status Notice on main ACP page',
-			'NOTICE_2'		=> 'Configurable in Board settings',
-			'NOTICE_3'		=> 'Switchable Run Cron Always',
-			'NOTICE_4'		=> 'phpBB 3.2 ready'
+			'NOTICE_1'			=> 'Obavijest statusa <em>crona</em> (opcionalno)',
+			'NOTICE_2'			=> 'Može biti isključen(o) u postavkama foruma',
+			'NOTICE_3'			=> 'Switchable Run Cron Always',
+			'NOTICE_4'			=> 'phpBB 3.2 ready'
 		)
 	)
 ));
