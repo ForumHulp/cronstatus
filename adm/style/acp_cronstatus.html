@@ -55,7 +55,7 @@
         <tr class="row-highlight">
             <td><strong<!-- IF not_ready.TASK_OK or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <a href="{U_UNLOCK}&action=reset"><i class="fa fa-lock cron-locked" title="{L_CRON_TASK_LOCKED}"></i></a><!-- ENDIF -->
             
-            <!-- IF not not_ready.TASK_OK and not not_ready.LOCKED --><span class="cron_now" id="{not_ready.DISPLAY_NAME}" style="float:right;">Run now</span><!-- ENDIF -->
+            <!-- IF not not_ready.TASK_OK and not not_ready.LOCKED --><span class="cron_now" id="{not_ready.DISPLAY_NAME}" style="float:right;">{L_CRON_TASK_RUN}</span><!-- ENDIF -->
             <span class="cron_running" id="{not_ready.DISPLAY_NAME}_running">{L_CRON_TASK_RUNNING}</span>
             </td>
             <td>{not_ready.TASK_DATE}</td>
