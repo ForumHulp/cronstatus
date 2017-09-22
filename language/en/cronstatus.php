@@ -27,6 +27,7 @@ $lang = array_merge($lang, array(
 	'CRON_TASK_LOCKED'					=> 'Cron task locked, unlock it!',
 	'CRON_STATUS_READY_TASKS'			=> 'Tasks ready to run',
 	'CRON_STATUS_NOT_READY_TASKS'		=> 'Not ready to run tasks',
+	'CRON_STATUS_NEVER_STARTED_TASKS'	=> 'Never started tasks',
 	'CRON_STATUS_NO_TASKS'				=> 'No available cron tasks',
 	'CRON_STATUS_DATE_FORMAT'			=> 'Date format for Cron Status page',
 	'CRON_STATUS_DATE_FORMAT_EXPLAIN'	=> 'The date format is the same as the PHP <code>date</code> function.',
@@ -45,4 +46,5 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_ERROR_EXPLAIN'			=> 'An error occurred during refreshing the page.',
 	'CRON_TASK_RUN'						=> 'Run',
 	'CRON_TASK_RUNNING'					=> 'Running...',
+	'CRON_TASK_RUN_NOW'					=> 'Run now'
 ));

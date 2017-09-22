@@ -28,6 +28,7 @@ $lang = array_merge($lang, array(
 	'CRON_TASK_LOCKED'					=> 'Zadatak <em>crona</em> (je) zaključan',
 	'CRON_STATUS_READY_TASKS'			=> 'Zadatci spremni za pokretanje',
 	'CRON_STATUS_NOT_READY_TASKS'		=> 'Zadatci nespremni za pokretanje',
+	'CRON_STATUS_NEVER_STARTED_TASKS'	=> 'Never started tasks',
 	'CRON_STATUS_NO_TASKS'				=> 'Nema dostupnih zadataka <em>crona</em>',
 	'CRON_STATUS_DATE_FORMAT'			=> 'Format datuma na stranici statusa <em>crona</em>',
 	'CRON_STATUS_DATE_FORMAT_EXPLAIN'	=> 'Format datuma jednak je PHP <code>date</code> funkciji.',
@@ -47,4 +48,5 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Razvojni/a programer/ka',
 	'CRON_TASK_RUN'						=> 'Pokreni',
 	'CRON_TASK_RUNNING'					=> 'Pokretanje [izvršavanje] u tijeku...',
+	'CRON_TASK_RUN_NOW'					=> 'Run now'
 ));

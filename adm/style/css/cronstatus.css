@@ -5,7 +5,7 @@ h1 {position: relative;}
 #ProgressStatus {display: none; position: absolute; z-index: 2; top: 2px; right: 8px; font-size: 12px; font-weight: bold;}
 
 .table1 th + th {text-align: center; width: 200px;}
-.table1 td + td {text-align: center;}
+.table1 td + td {text-align: center;width: 200px;}
 
 .table1 td strong {color:#228822;}
 
@@ -22,6 +22,7 @@ h1 {position: relative;}
 	}
 }
 
+#never_startedbtn {cursor:pointer;}
 #act-arrow {color:#CECECE;}
 
 #LoadError, #LoadErrorTimeout, #LoadPageError {display: none;}

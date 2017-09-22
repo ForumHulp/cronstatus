@@ -5,6 +5,10 @@
 	
 	$(".cron_run_link").css("display", "none");
 	$("#ProgressStatus, #circle, .cron_run").css("display", "block");
+	if ($.cookie("neverstarted") == 1)
+	{
+		$('#never_started').css("display", "table-cell");
+	}
 	var time = 59;
 	function progress() {
 		var element = $('#ProgressStatus');
@@ -44,6 +48,10 @@
 					$(".cron_now").bind("click", run_now);
 					$(".cron_run").css("display", "block");
 					$(".cron_now").css("display", "block");
+					if ($.cookie("neverstarted") == 1)
+					{
+						$('#never_started').css("display", "table-cell");
+					}
 				}
 			});
 		}
@@ -55,6 +63,16 @@
 		opacity: 0.1,
 		width: '650px',
 		closeLabel: '&times;'
+	});
+
+	$(document).on("click", "#never_startedbtn", function (e) {
+		e.preventDefault();
+		if ($('#never_started').css('display') == 'none') {
+			$.cookie("neverstarted", 1);
+		} else{
+			$.cookie("neverstarted", 0);
+		}
+		$('#never_started').toggle('slow');
 	});
 
 	function getISODateTime(d) {
@@ -98,21 +116,21 @@
 	}
 	$(".cron_run").bind("click", run_cron);
 
-function removeParam(key, sourceURL) {
+	function removeParam(key, sourceURL) {
     var rtn = sourceURL.split("?")[0],
         param,
         params_arr = [],
         queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
-    if (queryString !== "") {
-        params_arr = queryString.split("&");
-        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-            param = params_arr[i].split("=")[0];
-            if (param === key) {
-                params_arr.splice(i, 1);
-            }
-        }
-        rtn = rtn + "?" + params_arr.join("&");
-    }
-    return rtn;
-}
+		if (queryString !== "") {
+			params_arr = queryString.split("&");
+			for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+				param = params_arr[i].split("=")[0];
+				if (param === key) {
+					params_arr.splice(i, 1);
+				}
+			}
+			rtn = rtn + "?" + params_arr.join("&");
+		}
+		return rtn;
+	}
 })(jQuery, window, document);

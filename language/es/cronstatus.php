@@ -27,6 +27,7 @@ $lang = array_merge($lang, array(
 	'CRON_TASK_LOCKED'					=> 'Tarea Cron bloqueada',
 	'CRON_STATUS_READY_TASKS'			=> 'Tareas preparadas para ejecutar',
 	'CRON_STATUS_NOT_READY_TASKS'		=> 'No hay tareas preparadas',
+	'CRON_STATUS_NEVER_STARTED_TASKS'	=> 'Never started tasks',
 	'CRON_STATUS_NO_TASKS'				=> 'No hay tareas Cron disponibles',
 	'CRON_STATUS_DATE_FORMAT'			=> 'Formato de fecha para la página del Estado del Cron',
 	'CRON_STATUS_DATE_FORMAT_EXPLAIN'	=> 'El formato de fecha es el mismo que la función <code>date</code> de PHP.',
@@ -46,4 +47,5 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Desarrolladores',
 	'CRON_TASK_RUN'						=> 'Ejecutar',
 	'CRON_TASK_RUNNING'					=> 'Ejecutando...',
+	'CRON_TASK_RUN_NOW'					=> 'Run now'
 ));
