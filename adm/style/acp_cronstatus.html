@@ -12,7 +12,7 @@
 
 <div id="cron_table_container">
 <!-- ENDIF -->
-<!-- IF .ready or .not_ready -->
+<!-- IF .ready or .not_ready or .never_started -->
 <table class="table1" id="cron_table" data-no-responsive-header="true">
     <col class="row1">
     <col class="row1">
@@ -55,13 +55,40 @@
         <tr class="row-highlight">
             <td><strong<!-- IF not_ready.TASK_OK or not_ready.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{not_ready.DISPLAY_NAME}</strong><!-- IF not_ready.LOCKED --> <a href="{U_UNLOCK}&action=reset"><i class="fa fa-lock cron-locked" title="{L_CRON_TASK_LOCKED}"></i></a><!-- ENDIF -->
             
-            <!-- IF not not_ready.TASK_OK and not not_ready.LOCKED --><span class="cron_now" id="{not_ready.DISPLAY_NAME}" style="float:right;">{L_CRON_TASK_RUN}</span><!-- ENDIF -->
+            <!-- IF not not_ready.TASK_OK and not not_ready.LOCKED --><span class="cron_now" id="{not_ready.DISPLAY_NAME}" style="float:right;">{L_CRON_TASK_RUN_NOW}</span><!-- ENDIF -->
             <span class="cron_running" id="{not_ready.DISPLAY_NAME}_running">{L_CRON_TASK_RUNNING}</span>
             </td>
             <td>{not_ready.TASK_DATE}</td>
             <td><!-- IF not_ready.NEW_DATE -->{not_ready.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
         </tr>
         <!-- END not_ready -->
+        <!-- ENDIF -->
+
+        <!-- IF .never_started -->
+        <tr>
+            <td class="row3" colspan="3"><b id="never_startedbtn">{L_CRON_STATUS_NEVER_STARTED_TASKS}</b></td>
+        </tr>
+        <tr><td colspan="3" id="never_started" style="padding:0;display:none;">
+        <table class="table1 responsive show-header" data-no-responsive-header="true">
+        <col class="row1">
+        <col class="row1">
+        <col class="row1">
+        <!-- BEGIN never_started -->
+        <tr class="row-highlight">
+            <td><strong<!-- IF never_started.TASK_OK or never_started.LOCKED --> style="color: #BC2A4D;"<!-- ENDIF -->>{never_started.DISPLAY_NAME}</strong><!-- IF never_started.LOCKED --> <a href="{U_UNLOCK}&action=reset"><i class="fa fa-lock cron-locked" title="{L_CRON_TASK_LOCKED}"></i></a><!-- ENDIF -->
+            
+            <!-- IF not never_started.TASK_OK and not never_started.LOCKED --><span class="cron_now" id="{never_started.DISPLAY_NAME}" style="float:right;">{L_CRON_TASK_RUN_NOW}</span><!-- ENDIF -->
+            <span class="cron_running" id="{never_started.DISPLAY_NAME}_running">{L_CRON_TASK_RUNNING}</span>
+            </td>
+            <td>{never_started.TASK_DATE}</td>
+            <td><!-- IF never_started.NEW_DATE -->{never_started.NEW_DATE}<!-- ELSE -->-<!-- ENDIF --></td>
+        </tr>
+        <!-- END never_started -->
+        </table>
+        </td></tr>
+
+
+
         <!-- ENDIF -->
     </tbody>
 </table>
@@ -74,6 +101,7 @@
 // ]]>
 </script>
 <!-- INCLUDEJS {ROOT_PATH}ext/forumhulp/helper/js/jquery.simpledialog.js -->
+<!-- INCLUDEJS js/jquery-cookie.js -->
 <!-- INCLUDEJS js/cronstatus.js -->
 <!-- ENDIF -->
 <!-- ELSE -->

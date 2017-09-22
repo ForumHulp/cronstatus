@@ -27,6 +27,7 @@ $lang = array_merge($lang, array(
 	'CRON_TASK_LOCKED'					=> 'Cron görevi kilitli',
 	'CRON_STATUS_READY_TASKS'			=> 'Görevler çalıştırılmaya hazır',
 	'CRON_STATUS_NOT_READY_TASKS'		=> 'Görevler hazır değil',
+	'CRON_STATUS_NEVER_STARTED_TASKS'	=> 'Never started tasks',
 	'CRON_STATUS_NO_TASKS'				=> 'Erişilebilir cron görevi yok',
 	'CRON_STATUS_DATE_FORMAT'			=> 'Cron Durum sayfası için tarih formatı',
 	'CRON_STATUS_DATE_FORMAT_EXPLAIN'	=> 'Tarih formatı PHP <code>date</code> fonksiyonu ile aynı.',
@@ -46,4 +47,5 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Geliştiriciler',
 	'CRON_TASK_RUN'						=> 'Çalıştır',
 	'CRON_TASK_RUNNING'					=> 'Çalıştırılıyor...',
+	'CRON_TASK_RUN_NOW'					=> 'Run now'
 ));

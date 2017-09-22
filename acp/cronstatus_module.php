@@ -141,7 +141,7 @@ class cronstatus_module
 					extract($phpbb_dispatcher->trigger_event('forumhulp.cronstatus.modify_cron_task', compact($vars)));
 
 					$task_array[] = array(
-						'task_sort'			=> ($task->is_ready()) ? 'ready' : 'not_ready',
+						'task_sort'			=> ($task->is_ready()) ? 'ready' : (($task_date) ? 'not_ready' : 'never_started'),
 						'display_name'		=> $task_name,
 						'task_date'			=> $task_date,
 						'task_date_print'	=> ($task_date == -1) ? $user->lang['CRON_TASK_AUTO'] : (($task_date) ?

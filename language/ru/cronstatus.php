@@ -27,6 +27,7 @@ $lang = array_merge($lang, array(
 	'CRON_TASK_LOCKED'					=> 'Задание cron заблокировано',
 	'CRON_STATUS_READY_TASKS'			=> 'Задания, готовые для выполнения',
 	'CRON_STATUS_NOT_READY_TASKS'		=> 'Неготовые задания',
+	'CRON_STATUS_NEVER_STARTED_TASKS'	=> 'Never started tasks',
 	'CRON_STATUS_NO_TASKS'				=> 'Нет доступных заданий cron',
 	'CRON_STATUS_DATE_FORMAT'			=> 'Формат даты для страницы Статуса Cron',
 	'CRON_STATUS_DATE_FORMAT_EXPLAIN'	=> 'Синтаксис идентичен функции <code>date</code> языка PHP.',
@@ -46,4 +47,5 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Разработчики',
 	'CRON_TASK_RUN'						=> 'Выполнить',
 	'CRON_TASK_RUNNING'					=> 'Выполняется...',
+	'CRON_TASK_RUN_NOW'					=> 'Run now'
 ));
