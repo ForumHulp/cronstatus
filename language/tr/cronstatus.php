@@ -47,5 +47,6 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_DEVELOPERS'			=> 'Geliştiriciler',
 	'CRON_TASK_RUN'						=> 'Çalıştır',
 	'CRON_TASK_RUNNING'					=> 'Çalıştırılıyor...',
-	'CRON_TASK_RUN_NOW'					=> 'Run now'
+	'CRON_TASK_RUN_NOW'					=> 'Run now',
+	'CRON_TASK_RUN_ALL'					=> 'Run all'
 ));

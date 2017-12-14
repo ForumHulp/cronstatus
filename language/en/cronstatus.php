@@ -22,7 +22,7 @@ $lang = array_merge($lang, array(
 	'CRON_LOCKED'						=> 'Cron Locked',
 	'CRON_TIME_LOCKED'					=> 'Cron time locked',
 	'ACP_CRON_STATUS_TITLE'				=> 'Cron Status',
-	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status presents a overview of cron tasks in your board. A red marked task means a task which never started which has a<br />problem. A red lock means this task running now or, is locked by cron manager and blocks other tasks. Reset the cronlock by clicking on the lock.<br />Run a ready to run task by click on run next to the taskname. Configure Cron Status in General » Board configuration » Board settings.',
+	'ACP_CRON_STATUS_EXPLAIN'			=> 'Cron Status presents a overview of cron tasks in your board. A red marked task means a task which never started which has a<br />problem. A red lock means this task running now or, is locked by cron manager and blocks other tasks. Reset the cronlock by clicking on the lock or run all crons with one click. Run a ready to run task by click on run next to the taskname. Configure Cron Status in General » Board configuration » Board settings.',
 	'CRON_STATUS_REFRESH'				=> 'Seconds for refresh',
 	'CRON_TASK_LOCKED'					=> 'Cron task locked, unlock it!',
 	'CRON_STATUS_READY_TASKS'			=> 'Tasks ready to run',
@@ -46,5 +46,6 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_ERROR_EXPLAIN'			=> 'An error occurred during refreshing the page.',
 	'CRON_TASK_RUN'						=> 'Run',
 	'CRON_TASK_RUNNING'					=> 'Running...',
-	'CRON_TASK_RUN_NOW'					=> 'Run now'
+	'CRON_TASK_RUN_NOW'					=> 'Run now',
+	'CRON_TASK_RUN_ALL'					=> 'Run all'
 ));
