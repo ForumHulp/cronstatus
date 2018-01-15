@@ -10,6 +10,7 @@
 		$('#never_started').css("display", "table-cell");
 	}
 	var time = 59;
+	var runall = false;
 	function progress() {
 		var element = $('#ProgressStatus');
 		var circle = $('#circle');
@@ -17,6 +18,7 @@
 		element.html(time);
 		$('#date').text(getISODateTime());
 		if (time === 0) {
+			
 			clearInterval(interval);
 			element.html("");
 			circle.removeClass("fa-circle-o-notch");
@@ -48,6 +50,8 @@
 					$(".cron_now").bind("click", run_now);
 					$(".cron_run").css("display", "block");
 					$(".cron_now").css("display", "block");
+					if (runall) {$('#runall').click();}
+
 					if ($.cookie("neverstarted") == 1)
 					{
 						$('#never_started').css("display", "table-cell");
@@ -63,6 +67,24 @@
 		opacity: 0.1,
 		width: '650px',
 		closeLabel: '&times;'
+	});
+
+	$(document).on("click", "#runall", function (e) {
+		e.preventDefault();
+		runall = ($('.cron_run').length > 1) ? true : false;
+		var cron_task = $(".cron_run:first").attr('id');
+		$(".cron_run").css("display", "none");
+		$(".cron_now").css("display", "none");
+		 /*jshint validthis: true */
+		$(".cron_running:first").css("display", "block");
+
+		$.ajax({
+			url: removeParam('action', window.location.href) + "&action=runnow&table=true&cron_type=" + cron_task + "&t=" + time,
+			success: function () {
+				$("#run_cron_task").attr("src", cron_url + "&cron_type=" + cron_task + "&t=" + time);
+				time = 10;
+			}
+		});
 	});
 
 	$(document).on("click", "#never_startedbtn", function (e) {
@@ -117,7 +139,7 @@
 	$(".cron_run").bind("click", run_cron);
 
 	function removeParam(key, sourceURL) {
-    var rtn = sourceURL.split("?")[0],
+   		var rtn = sourceURL.split("?")[0],
         param,
         params_arr = [],
         queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";

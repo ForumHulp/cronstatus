@@ -67,5 +67,8 @@ $lang = array_merge($lang, array(
 	'CRON_STATUS_ERROR_EXPLAIN'			=> 'Une erreur s’est produite lors de l’actualisation de la page.',
 	'CRON_TASK_RUN'						=> 'Exécuter la tâche',
 	'CRON_TASK_RUNNING'					=> 'En cours d’exécution…',
-	'CRON_TASK_RUN_NOW'					=> 'Exécuter la tâche maintenant'
+	'CRON_TASK_RUN_NOW'					=> 'Run now',
+	'CRON_TASK_RUN_ALL'					=> 'Run all',
+	'CRON_TASK_RUN_NOW'					=> 'Exécuter la tâche maintenant',
+	'CRON_TASK_RUN_ALL'					=> 'Run all'
 ));

@@ -29,6 +29,8 @@ h1 {position: relative;}
 #LoadError {position: absolute; z-index: 2; top: 0; right: 0;}
 #LoadError i {display: inline-block; margin-right: 5px;}
 
+#runall {float: right; color: #105289; cursor: pointer;}
+#runall:hover {color: #bc2a4d; text-decoration: underline;}
 .cron_run {float: right; color: #105289; cursor: pointer; display: none;}
 .cron_run:hover {color: #bc2a4d; text-decoration: underline;}
 .cron_now {float: right; color: #105289; cursor: pointer;}
