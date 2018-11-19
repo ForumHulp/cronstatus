@@ -170,13 +170,11 @@ class cronstatus_module
 				}
 			}
 			$cron_url = append_sid($phpbb_root_path . 'cron.' . $phpEx, false, false); // This is used in JavaScript (no &amp;).
-			$type_cast_helper = new \phpbb\request\type_cast_helper(); // We need to use a special class because addslashes() is thought to be not valid by EPV.
-			$type_cast_helper->addslashes_recursively($cron_url);
 			$template->assign_vars(array(
 				'U_ACTION'		=> $this->u_action,
 				'U_NAME'		=> $sk,
 				'U_SORT'		=> $sd,
-				'CRON_URL'		=> (!$config['cron_lock']) ? $cron_url : '',
+				'CRON_URL'		=> (!$config['cron_lock']) ? addslashes($cron_url) : '',
 				'U_UNLOCK'		=> $this->u_action,
 				'VIEW_TABLE'	=> $view_table
 			));
