@@ -35,8 +35,8 @@
         },
         "version-check": {
             "host": "forumhulp.com",
-			"directory": "/ext",
-			"filename": "index.php?id=28"
+			"directory": "/versioncheck",
+			"filename": "cronstatus"
         }
     }
 }
