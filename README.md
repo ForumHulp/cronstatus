@@ -5,8 +5,8 @@ Cron Status displays an overview of Board's Cron Jobs in Maintenance module of A
 [![Build Status](https://travis-ci.org/ForumHulp/cronstatus.svg?branch=master)](https://travis-ci.org/ForumHulp/cronstatus)
 
 ## Requirements
-* phpBB 3.1.0 or higher
-* PHP 5.3.3 or higher
+* phpBB 3.3.0 or higher
+* PHP 7.0.0 or higher
 
 You can also download an [old release for early development versions of phpBB 3.1.0](https://github.com/ForumHulp/cronstatus/releases/tag/v3.1.0-dev).
 
