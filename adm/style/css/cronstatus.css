@@ -2,7 +2,7 @@
 
 h1 {position: relative;}
 #circle {display: none; float: right; font-size: 30px;}
-#ProgressStatus {display: none; position: absolute; z-index: 2; top: 2px; right: 8px; font-size: 12px; font-weight: bold;}
+#ProgressStatus {display: none; position: absolute; z-index: 2; top: 5px; right: 8px; font-size: 12px; font-weight: bold;}
 
 .table1 th + th {text-align: center; width: 200px;}
 .table1 td + td {text-align: center;width: 200px;}

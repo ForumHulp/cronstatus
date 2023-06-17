@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "Cron Status displays an overview of Board's Cron Jobs in Maintenance module of the ACP. This extension also shows a notification on the main page of the ACP when a cron job is locked (optionally). It shows the time when the cron task started and which cron task was the problem.",
     "homepage": "http://forumhulp.com",
-    "version": "3.2.0",
+    "version": "3.3.0",
     "keywords": [
         "forumhulp",
         "phpbb",
@@ -26,12 +26,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=7.0.0"
     },
     "extra": {
         "display-name": "Cron Status",
         "soft-require": {
-            "phpbb/phpbb": ">=3.2.*"
+            "phpbb/phpbb": ">=3.3.*"
         },
         "version-check": {
             "host": "forumhulp.com",
