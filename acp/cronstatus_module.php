@@ -12,6 +12,8 @@ namespace forumhulp\cronstatus\acp;
 class cronstatus_module
 {
 	public $u_action;
+	public $page_title;
+	public $tpl_name;
 
 	function main($id, $mode)
 	{

@@ -6,7 +6,7 @@ Cron Status displays an overview of Board's Cron Jobs in Maintenance module of A
 
 ## Requirements
 * phpBB 3.3.0 or higher
-* PHP 7.0.0 or higher
+* PHP 7.0.0 or higher (compatible with PHP 8.5.12)
 
 You can also download an [old release for early development versions of phpBB 3.1.0](https://github.com/ForumHulp/cronstatus/releases/tag/v3.1.0-dev).
 
